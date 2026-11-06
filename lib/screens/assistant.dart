@@ -285,6 +285,7 @@ class _VoiceBotScreenState extends State<VoiceBotScreen> {
       appBar: AppBar(
         backgroundColor: Seva.navy,
         foregroundColor: Colors.white,
+        titleTextStyle: context.tt.titleLarge?.copyWith(color: Colors.white, fontSize: 18),
         title: Text(context.tr('Seva voice bot', 'ಸೇವಾ ಧ್ವನಿ ಬಾಟ್')),
         actions: const [DemoChip(onDark: true), SizedBox(width: 16)],
       ),

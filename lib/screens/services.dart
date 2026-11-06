@@ -20,19 +20,27 @@ class ServicesScreen extends StatefulWidget {
 }
 
 class _ServicesScreenState extends State<ServicesScreen> with SingleTickerProviderStateMixin {
-  late final TabController tabs = TabController(length: 2, vsync: this);
+  late final TabController tabs =
+      TabController(length: 2, vsync: this, initialIndex: servicesTab.value);
 
   @override
   void initState() {
     super.initState();
     servicesTab.addListener(_sync);
+    tabs.addListener(_record);
   }
 
-  void _sync() => tabs.animateTo(servicesTab.value);
+  void _sync() {
+    if (tabs.index != servicesTab.value) tabs.animateTo(servicesTab.value);
+  }
+
+  // Keeps servicesTab current after a swipe, so "open Schemes" always fires.
+  void _record() => servicesTab.value = tabs.index;
 
   @override
   void dispose() {
     servicesTab.removeListener(_sync);
+    tabs.removeListener(_record);
     tabs.dispose();
     super.dispose();
   }

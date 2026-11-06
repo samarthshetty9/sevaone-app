@@ -21,4 +21,6 @@
 
 **Tests:** `test/widget_test.dart` opens every screen in English and Kannada at 100% and 160% text and fails on overflow. Test fonts are wider than real ones, so it is deliberately strict. `test/flows_test.dart` taps through the core journeys. In `testWidgets`, load assets in `setUpAll`, since real file IO hangs under the fake clock.
 
+`tool/capture_screens_test.dart` renders every screen to `screenshots/` (git-ignored) with the real fonts; run it with `flutter test tool/capture_screens_test.dart --update-goldens`. Look at the output: it catches visual bugs, like dark-on-dark titles, that the sweep cannot.
+
 **Known constraints:** Kannada copy is machine-written and needs native review. Android has not been built here (no Android SDK).

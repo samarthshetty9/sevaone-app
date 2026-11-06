@@ -275,7 +275,7 @@ class DocumentView extends StatelessWidget {
               gradient: const LinearGradient(colors: [Seva.navy, Seva.blueDark]),
               borderRadius: BorderRadius.circular(18),
             ),
-            child: DefaultTextStyle(
+            child: DefaultTextStyle.merge(
               style: const TextStyle(color: Colors.white),
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Row(children: [

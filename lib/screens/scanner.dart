@@ -103,6 +103,7 @@ class _ScannerScreenState extends State<ScannerScreen> with SingleTickerProvider
       appBar: AppBar(
         backgroundColor: const Color(0xFF0E0F1C),
         foregroundColor: Colors.white,
+        titleTextStyle: context.tt.titleLarge?.copyWith(color: Colors.white, fontSize: 18),
         title: Text(captured
             ? context.tr('Review scan', 'ಸ್ಕ್ಯಾನ್ ಪರಿಶೀಲಿಸಿ')
             : context.tr('Scan document', 'ದಾಖಲೆ ಸ್ಕ್ಯಾನ್')),
