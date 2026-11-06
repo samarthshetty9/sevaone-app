@@ -1,0 +1,1633 @@
+[
+{
+"code": "404",
+"dept": "Directorate of social security and pensions",
+"name": "Manaswini Yojane",
+"desc": "This service is to avail monthly pension by unmarried/divorcee women under Manswini scheme",
+"scheme": true
+},
+{
+"code": "405",
+"dept": "Directorate of social security and pensions",
+"name": "Anthya Samskara Yojane",
+"desc": "This scheme is to provide financial assistance to conduct last rites under Anthya Samskara Yojane",
+"scheme": true
+},
+{
+"code": "406",
+"dept": "Directorate of social security and pensions",
+"name": "Acid Victim Pension",
+"desc": "This scheme is to provide financial assistance to Acid Victims",
+"scheme": true
+},
+{
+"code": "407",
+"dept": "Directorate of social security and pensions",
+"name": "Farmer Widow Pension",
+"desc": "This service is to be availed by widow of deceased farmer",
+"scheme": true
+},
+{
+"code": "408",
+"dept": "Directorate of social security and pensions",
+"name": "Endosulphin Victim Pension",
+"desc": "This service is to be availed by victims of Endosulfan poisoning",
+"scheme": true
+},
+{
+"code": "409",
+"dept": "Directorate of social security and pensions",
+"name": "Physically Handicapped Pension",
+"desc": "This is pension for Physically Handicapped",
+"scheme": true
+},
+{
+"code": "410",
+"dept": "Directorate of social security and pensions",
+"name": "Destitute Widow Pension sanction",
+"desc": "This service is for widows to avail pension",
+"scheme": true
+},
+{
+"code": "411",
+"dept": "Directorate of social security and pensions",
+"name": "Sandhya Suraksha Yojane",
+"desc": "This service is for senior citizens to avail pension",
+"scheme": true
+},
+{
+"code": "412",
+"dept": "Directorate of social security and pensions",
+"name": "National Family Benefit Scheme",
+"desc": "This service is to avail National Family Scheme",
+"scheme": true
+},
+{
+"code": "413",
+"dept": "Directorate of social security and pensions",
+"name": "Indira Gandhi National Old Age Pension",
+"desc": "This service is to avail pension under Indira Gandhi National Old Age Pension Scheme",
+"scheme": true
+},
+{
+"code": "414",
+"dept": "Directorate of social security and pensions",
+"name": "Maithri Scheme",
+"desc": "This service is to avail pension for Transgenders under Mythiri scheme",
+"scheme": true
+},
+{
+"code": "2259",
+"dept": "Department of Electrical Inspectorate",
+"name": "a) Lift/Escalator/Passenger conveyor Inspection & recommendation by ACEI/DCEI <br> b) Grant of Lift/Escalator/Passenger conveyor running license by Chief Electrical Inspector to Govt",
+"desc": "a) Jurisdictional Additional Chief Electrical Inspector/Deputy Chief Electrical Inspector shall inspect the lift installation  <br>\nNecessary tests will be conducted during the inspection and if the Lift installation is in general conformity with the Karnataka Lift Act & Rules \nthen the recommendations will be sent to the Chief Electrical Inspector for grant the Licence. <br> b) Upon receipt of the Recomendation received by the conerned officers  the Chief Electrical Inspector to Govt. will Grant a License forLift/Escalator/Passenger conveyor running license",
+"scheme": false
+},
+{
+"code": "2260",
+"dept": "Department of Electrical Inspectorate",
+"name": "Approval of drawings of the electrical installation",
+"desc": "As per delegation power drawings are approved by DEI/EI/DCEI/ACEI/CEIG",
+"scheme": false
+},
+{
+"code": "2261",
+"dept": "Department of Electrical Inspectorate",
+"name": "Change of Address of Electrical Contractor Licenses",
+"desc": "",
+"scheme": false
+},
+{
+"code": "2262",
+"dept": "Department of Electrical Inspectorate",
+"name": "Change of authorized signatory, Partners /Directors in case of Partnership firms / Company and change of Instruments",
+"desc": "",
+"scheme": false
+},
+{
+"code": "2263",
+"dept": "Department of Electrical Inspectorate",
+"name": "Electrical Supervisor General Permits Endorsement",
+"desc": "the Electrical contractor after Obtaining Electrical\nContractor license and before commencement of electrical installation work\nshall get endorsement of the Electrical Supervisor General",
+"scheme": false
+},
+{
+"code": "2264",
+"dept": "Department of Electrical Inspectorate",
+"name": "Electrical Supervisor Mines Permits Endorsement",
+"desc": "",
+"scheme": false
+},
+{
+"code": "2265",
+"dept": "Department of Electrical Inspectorate",
+"name": "Grant of Commissioning Approval",
+"desc": "As per delegation power Commissioning is accorded DEI/EI/DCEI/ACEI/CEIG",
+"scheme": false
+},
+{
+"code": "2266",
+"dept": "Department of Electrical Inspectorate",
+"name": "Issue Electrical Contractor Licenses",
+"desc": "This service is intended to issue the Electrical Contractor License / Renewal of existing license to the citizens in licenses 4 types Super Grade(SGL), Class-1(CL-1), Class-2(Cl-2), Class-3(Cl-3)",
+"scheme": false
+},
+{
+"code": "2267",
+"dept": "Department of Electrical Inspectorate",
+"name": "Issue Electrical Supervisor General Permits",
+"desc": "This service is intended to issue the Electrical Supervisor permit fresh / Renewal of existing Electrical Supervisor permit holders,",
+"scheme": false
+},
+{
+"code": "2268",
+"dept": "Department of Electrical Inspectorate",
+"name": "Issue Electrical Supervisor Mines Permits",
+"desc": "This service is intended to issue the Electrical Supervisor permit Mines fresh / Renewal of existing Electrical Supervisor Mines permit holders",
+"scheme": false
+},
+{
+"code": "2269",
+"dept": "Department of Electrical Inspectorate",
+"name": "Issue Special Wiring Permits",
+"desc": "This service is intended to issue the Special Wiring Permits fresh / Renewal of existing pecial Wiring Permit to the citizens in Special Wiring Permit EHV/HV",
+"scheme": false
+},
+{
+"code": "2270",
+"dept": "Department of Electrical Inspectorate",
+"name": "Issue Wiremen Permits",
+"desc": "This service is intended to issue the wiremen permit fresh / Renewal of existing license to the citizens in wiremen permits 2 types Super Grade-1, Grade-2,",
+"scheme": false
+},
+{
+"code": "2271",
+"dept": "Department of Electrical Inspectorate",
+"name": "Permission to Erect New Lift/Escalator/Passenger conveyor or making addition/alteration to the existing Lift, escalator & passenger conveyor",
+"desc": "Upon submission of the prescribed documents through online  to the concerned jurisdictional ACEI/DCEI Office  the officers will scrutinize the application and issue the erection permission",
+"scheme": false
+},
+{
+"code": "2272",
+"dept": "Department of Electrical Inspectorate",
+"name": "Wiremen Permits Endorsement",
+"desc": "The Electrical contractor after Obtaining Electrical Contractor license and before commencement of electrical installation work shall get endorsement of the Electrical wiremen.",
+"scheme": false
+},
+{
+"code": "2273",
+"dept": "Department of Electrical Inspectorate",
+"name": "Endorsement-Cancellation",
+"desc": "",
+"scheme": false
+},
+{
+"code": "2274",
+"dept": "Department of Electrical Inspectorate",
+"name": "Change of Address of Electrical Supervisor General Permits",
+"desc": "",
+"scheme": false
+},
+{
+"code": "2275",
+"dept": "Department of Electrical Inspectorate",
+"name": "Change of Address of Electrical Supervisor Mines Permits",
+"desc": "",
+"scheme": false
+},
+{
+"code": "2276",
+"dept": "Department of Electrical Inspectorate",
+"name": "Change of Address of Electrical Wireman Permit",
+"desc": "",
+"scheme": false
+},
+{
+"code": "2277",
+"dept": "Department of Electrical Inspectorate",
+"name": "Change of Address of Electrical Special Wireman Permit",
+"desc": "",
+"scheme": false
+},
+{
+"code": "2278",
+"dept": "Department of Electrical Inspectorate",
+"name": "Electrical Supervisor General Examination",
+"desc": "",
+"scheme": false
+},
+{
+"code": "2279",
+"dept": "Department of Electrical Inspectorate",
+"name": "Electrical Supervisor Mines Examination",
+"desc": "",
+"scheme": false
+},
+{
+"code": "2280",
+"dept": "Department of Electrical Inspectorate",
+"name": "Electrical Wireman Examination",
+"desc": "",
+"scheme": false
+},
+{
+"code": "5059",
+"dept": "Chamundeshwari Electricity Supply Company Limited",
+"name": "Distribution Transformer failure a)  city areas b) Rural areas",
+"desc": "Distribution Transformer failure a)  city/Town areas b) Rural areas",
+"scheme": false
+},
+{
+"code": "5060",
+"dept": "Chamundeshwari Electricity Supply Company Limited",
+"name": "Load Change- Non-RAPDRP",
+"desc": "Load Change- Non-RAPDRP",
+"scheme": false
+},
+{
+"code": "5061",
+"dept": "Chamundeshwari Electricity Supply Company Limited",
+"name": "Name Change- Non-RAPDRP",
+"desc": "Name Change- Non-RAPDRP",
+"scheme": false
+},
+{
+"code": "5062",
+"dept": "Chamundeshwari Electricity Supply Company Limited",
+"name": "Tariff Change- Non-RAPDRP",
+"desc": "Tariff Change- Non-RAPDRP",
+"scheme": false
+},
+{
+"code": "5063",
+"dept": "Chamundeshwari Electricity Supply Company Limited",
+"name": "Issue of certificates a) Cities and Towns b) Rural areas",
+"desc": "Issue of certificates a) Cities & Towns b) Rural areas",
+"scheme": false
+},
+{
+"code": "5064",
+"dept": "Chamundeshwari Electricity Supply Company Limited",
+"name": "Line breakdown a)  City areas b) Rural areas",
+"desc": "Line breakdown a)  City areas b) Rural areas",
+"scheme": false
+},
+{
+"code": "5065",
+"dept": "Chamundeshwari Electricity Supply Company Limited",
+"name": "Meter Complaints  a) Inspect and Check corrections  b) Replace slow",
+"desc": "Meter Complaints  a) Inspect and Check corrections  b) Replace slow or creeping or stuck meters c) Replace  burnt meters  if cause not attributable to consumer d) Replace  burnt meters  in all other cases",
+"scheme": false
+},
+{
+"code": "5068",
+"dept": "Chamundeshwari Electricity Supply Company Limited",
+"name": "Resolution of complaints on consumer s bills  a) Where field report is not required b) Where field",
+"desc": "Resolution of complaints on consumer s bills  a) Where field report is not required b) Where field report is required",
+"scheme": false
+},
+{
+"code": "2167",
+"dept": "Commerce And Industries Department",
+"name": "Sanction of Investment Promotion subsidy for Micro, Small and Medium Enterprises",
+"desc": "Subsidy will be sanctioned to MSMEs  based on the investment made and location of the unit under New/ Expansion/diversification/ modernisation program. It ranges from 10% to 30% of investment made and zone in which it is located.",
+"scheme": false
+},
+{
+"code": "2168",
+"dept": "Commerce And Industries Department",
+"name": "Stamp Duty Exemption and Registration Fees Concession Certificate",
+"desc": "Stamp duty and registration charges have to be paid by MSMEs for registration of land documents or loan documents. Under this stamp duty is exempted to the extent of 75%-100% and concession will be offered for registration charges depending upon zone in which it is located.",
+"scheme": false
+},
+{
+"code": "2169",
+"dept": "Commerce And Industries Department",
+"name": "Electricity Duty Exemption Certificate",
+"desc": "Electricity Tax exemption certificate will be issued to MSMEs carrying out new, expansion, diversification or modernisation program. The period varies from 4 to 7 years depending upon zone in which it islocated.",
+"scheme": false
+},
+{
+"code": "2170",
+"dept": "Commerce And Industries Department",
+"name": "Issue of Sanction order for interest Subsidy to New Micro enterprises",
+"desc": "5% interest subsidy will be reimbursed to the Micro manufacturing enterprises that have availed loan from nationalised banks. The period is 4-7 years depending upon zone in which it islocated.",
+"scheme": false
+},
+{
+"code": "2171",
+"dept": "Commerce And Industries Department",
+"name": "Issue of Sanction order for Land Conversion fee Reimbursement",
+"desc": "Land conversion fee paid by entrepreneurs/ industries for industrial use will be reimbursed to the extent of 75% -100% depending upon zone in which it islocated.",
+"scheme": false
+},
+{
+"code": "5091",
+"dept": "Commerce And Industries Department",
+"name": "Bulk permit or Rack permit for Major Mineral",
+"desc": "The service is for Bulk permit or Rack permit for Major Mineral",
+"scheme": false
+},
+{
+"code": "5092",
+"dept": "Commerce And Industries Department",
+"name": "Crusher License",
+"desc": "The service is for applying for Crusher License",
+"scheme": false
+},
+{
+"code": "5093",
+"dept": "Commerce And Industries Department",
+"name": "Electricity Exemption Certificate",
+"desc": "This application is for claiming electricity duty exemption for micro, small, medium and large enterprises",
+"scheme": false
+},
+{
+"code": "5094",
+"dept": "Commerce And Industries Department",
+"name": "Partial Withdraw and Final Settlement of Thrift Fund Scheme",
+"desc": "The service is for Partial Withdraw and Final Settlement of Thrift Fund Scheme",
+"scheme": true
+},
+{
+"code": "5095",
+"dept": "Commerce And Industries Department",
+"name": "Power Subsidy",
+"desc": "The service is for claiming Power Subsidy",
+"scheme": false
+},
+{
+"code": "5096",
+"dept": "Commerce And Industries Department",
+"name": "Scholarship for Weavers Children",
+"desc": "This service is for Scholarship for Weavers Children",
+"scheme": true
+},
+{
+"code": "5000",
+"dept": "Centre for e-Governance",
+"name": "State Scholarship Portal (Post-Matric)",
+"desc": "An Integrated State Scholarship Portal (SSP) is developed by Center for e-Governance, GoK for sanctioning of Post-Matric Scholarship under various Schemes of Government of Karnataka. SSP does Direct Benefit Transfer into Aadhaar seeded account of the student.",
+"scheme": true
+},
+{
+"code": "5001",
+"dept": "Centre for e-Governance",
+"name": "State Scholarship Portal( Pre-Matric)",
+"desc": "An Integrated State Scholarship Portal (SSP) is developed by Center for e-Governance, GoK for sanctioning of Pre-Matric Scholarship under various Schemes of Government of Karnataka. SSP does Direct Benefit Transfer into Aadhaar seeded account of the student.",
+"scheme": true
+},
+{
+"code": "5045",
+"dept": "Bangalore Metropolitan Transport Corporation",
+"name": "Issue of BMTC Student PVC card",
+"desc": "Issue of BMTC Student PVC card",
+"scheme": false
+},
+{
+"code": "5046",
+"dept": "Bangalore Metropolitan Transport Corporation",
+"name": "Application for Free Driving Training From BMTC under SCSP TSP scheme",
+"desc": "Application for Free Driving Training From BMTC under SCSP TSP scheme",
+"scheme": true
+},
+{
+"code": "5047",
+"dept": "Bangalore Metropolitan Transport Corporation",
+"name": "Application for Lost, Damage or Route change of BMTC student Bus pass",
+"desc": "Application for Lost, Damage or Route change of BMTC student Bus pass",
+"scheme": false
+},
+{
+"code": "5048",
+"dept": "Bangalore Metropolitan Transport Corporation",
+"name": "Issuance of Student Bus Pass  CBSE ICSE",
+"desc": "Issuance of Student Bus Pass  CBSE ICSE",
+"scheme": false
+},
+{
+"code": "5049",
+"dept": "Bangalore Metropolitan Transport Corporation",
+"name": "Issuance of Student Bus Pass - Degree Professional Technical Medical Evening PhD",
+"desc": "Issuance of Student Bus Pass - Degree Professional Technical Medical Evening PhD",
+"scheme": false
+},
+{
+"code": "5050",
+"dept": "Bangalore Metropolitan Transport Corporation",
+"name": "Issuance of Student Bus Pass - Upto 10th (State)",
+"desc": "Issuance of Student Bus Pass - Upto 10th (State)",
+"scheme": false
+},
+{
+"code": "5097",
+"dept": "Cooperation Department",
+"name": "Application for Extension for reservation of storage space",
+"desc": "This application is for Extension for reservation of storage space",
+"scheme": false
+},
+{
+"code": "5098",
+"dept": "Cooperation Department",
+"name": "Commission Agent Licence",
+"desc": "This application is for issuing licence for Commission Agents",
+"scheme": false
+},
+{
+"code": "5099",
+"dept": "Cooperation Department",
+"name": "Grievances market charges in market yard",
+"desc": "This application is for addressing  Grievances_market charges in market yard",
+"scheme": false
+},
+{
+"code": "5100",
+"dept": "Cooperation Department",
+"name": "Warehouse Licence for Private warehouse Co-operative societies",
+"desc": "This application is for issuing Warehouse Licence for Private warehouse / Co-operative societies",
+"scheme": false
+},
+{
+"code": "5134",
+"dept": "Women and Child Development",
+"name": "Gender Minority Rehabilitation Scheme",
+"desc": "Gender Minority Rehabilitation Scheme.",
+"scheme": true
+},
+{
+"code": "5135",
+"dept": "Women and Child Development",
+"name": "Gruha Lakshmi",
+"desc": "Gruha Lakshmi",
+"scheme": true
+},
+{
+"code": "5136",
+"dept": "Women and Child Development",
+"name": "Gruhalakshmi EKYC service",
+"desc": "Gruhalakshmi EKYC service",
+"scheme": true
+},
+{
+"code": "5137",
+"dept": "Women and Child Development",
+"name": "Gruhalakshmi sanction order",
+"desc": "Gruhalakshmi sanction order",
+"scheme": true
+},
+{
+"code": "5138",
+"dept": "Women and Child Development",
+"name": "Gruhalakshmi Yojana",
+"desc": "Gruhalakshmi Yojana",
+"scheme": true
+},
+{
+"code": "5139",
+"dept": "Women and Child Development",
+"name": "Gruhalakshmi Yojana Pre Appoved",
+"desc": "Gruhalakshmi Yojana Pre Appoved",
+"scheme": true
+},
+{
+"code": "5140",
+"dept": "Women and Child Development",
+"name": "Kiru Sala - Micro Credit Yojane",
+"desc": "This service is for Kiru Sala (Micro Credit) Yojane",
+"scheme": true
+},
+{
+"code": "5141",
+"dept": "Women and Child Development",
+"name": "Lingatva alpa sankhyatara punarvasati Yojane",
+"desc": "This service is for Lingatva alpa sankhyatara punarvasati Yojane",
+"scheme": true
+},
+{
+"code": "5142",
+"dept": "Women and Child Development",
+"name": "Pradhan Mantri Matru Vandana Yojan P M M V Y",
+"desc": "Pradhan Mantri Matru Vandana Yojan P M M V Y",
+"scheme": true
+},
+{
+"code": "5143",
+"dept": "Women and Child Development",
+"name": "Reverification Of Rejected Cases By DD",
+"desc": "Reverification Of Rejected Cases By DD",
+"scheme": false
+},
+{
+"code": "5144",
+"dept": "Women and Child Development",
+"name": "Track Gruhalakshmi Application Status",
+"desc": "Track Gruhalakshmi Application Status",
+"scheme": true
+},
+{
+"code": "5145",
+"dept": "Women and Child Development",
+"name": "Updating of Death cases by CDPO",
+"desc": "Updating of Death cases by CDPO",
+"scheme": false
+},
+{
+"code": "5149",
+"dept": "Empowerment of Differently Abled and Senior Citizen",
+"name": "Application for Prathibe Scheme",
+"desc": "Application for Prathibe Scheme",
+"scheme": true
+},
+{
+"code": "5150",
+"dept": "Empowerment of Differently Abled and Senior Citizen",
+"name": "Application for Sadhane Scheme",
+"desc": "Application for Sadhane Scheme",
+"scheme": true
+},
+{
+"code": "5154",
+"dept": "Empowerment of Differently Abled and Senior Citizen",
+"name": "Death Relief Fund",
+"desc": "Death Relief Fund",
+"scheme": false
+},
+{
+"code": "5155",
+"dept": "Empowerment of Differently Abled and Senior Citizen",
+"name": "Disability Certificate and Identity Card for Differently Abled Persons",
+"desc": "Disability Certificate and Identity Card for Differently Abled Persons",
+"scheme": false
+},
+{
+"code": "5158",
+"dept": "Empowerment of Differently Abled and Senior Citizen",
+"name": "Prize money for Merit Scholarship Disability Students",
+"desc": "Prize money for Merit Scholarship Disability Students",
+"scheme": true
+},
+{
+"code": "5161",
+"dept": "Empowerment of Differently Abled and Senior Citizen",
+"name": "Unemployment Allowance for Disabilities",
+"desc": "Unemployment Allowance for Disabilities",
+"scheme": false
+},
+{
+"code": "5162",
+"dept": "Department of Factories, Boilers, Industrial Safety and Health",
+"name": "Registration of Boilers, Economisers and Registration of Steam pipelines",
+"desc": "Registration of Boilers, Economisers and Registration of Steam pipelines",
+"scheme": false
+},
+{
+"code": "5163",
+"dept": "Department of Factories, Boilers, Industrial Safety and Health",
+"name": "Amendment of Licence or Transfer",
+"desc": "Amendment of Licence or Transfer",
+"scheme": false
+},
+{
+"code": "5164",
+"dept": "Department of Factories, Boilers, Industrial Safety and Health",
+"name": "Approval of Boiler and Pressure part Manufacturing drawing steam pipeline and pipeline layout drawi",
+"desc": "Approval of Boiler and Pressure part Manufacturing drawing steam pipeline and pipeline layout drawings",
+"scheme": false
+},
+{
+"code": "5165",
+"dept": "Department of Factories, Boilers, Industrial Safety and Health",
+"name": "Approval of Factory plans",
+"desc": "Approval of Factory plans",
+"scheme": false
+},
+{
+"code": "5166",
+"dept": "Department of Factories, Boilers, Industrial Safety and Health",
+"name": "Certificate for recognition as Boiler erector or repairer and renewal thereof",
+"desc": "Certificate for recognition as Boiler erector or repairer and renewal thereof",
+"scheme": false
+},
+{
+"code": "5167",
+"dept": "Department of Factories, Boilers, Industrial Safety and Health",
+"name": "Certificate for recognition as Boiler manufacturer and renewal thereof",
+"desc": "Certificate for recognition as Boiler manufacturer and renewal thereof",
+"scheme": false
+},
+{
+"code": "5168",
+"dept": "Department of Factories, Boilers, Industrial Safety and Health",
+"name": "Registration of Factories and issue of licence",
+"desc": "Registration of Factories and issue of licence",
+"scheme": false
+},
+{
+"code": "5169",
+"dept": "Department of Factories, Boilers, Industrial Safety and Health",
+"name": "Renewal of Factory License",
+"desc": "Renewal of Factory License",
+"scheme": false
+},
+{
+"code": "5170",
+"dept": "Department of Factories, Boilers, Industrial Safety and Health",
+"name": "Transfer of Licence",
+"desc": "Transfer of Licence",
+"scheme": false
+},
+{
+"code": "5227",
+"dept": "Suvarna Arogya Suraksha Trust",
+"name": "AB PMJAY CMs ArK",
+"desc": "Ayushman Bharat PMJAY is the largest health assurance scheme is used to apply ABHA card.",
+"scheme": true
+},
+{
+"code": "5228",
+"dept": "Suvarna Arogya Suraksha Trust",
+"name": "Accident Victim AV",
+"desc": "This scheme from the Ministry of Road Transport and Highways provides ambulances and cranes to help with accident relief and rescue",
+"scheme": true
+},
+{
+"code": "5229",
+"dept": "Suvarna Arogya Suraksha Trust",
+"name": "Cochlear Implant COC",
+"desc": "Cochlear implant (COC) services are for people with severe to profound hearing loss who don't benefit from hearing aids.",
+"scheme": false
+},
+{
+"code": "5230",
+"dept": "Suvarna Arogya Suraksha Trust",
+"name": "Jyothi Sanjeevini Scheme JSS",
+"desc": "The scheme covers Tertiary and Emergency treatment of 7 broad specialities viz Cardiology, Oncology, Genito Urinary Surgery, Neurology , Burns, Poly-Trauma cases",
+"scheme": true
+},
+{
+"code": "5231",
+"dept": "Suvarna Arogya Suraksha Trust",
+"name": "Organ Transplant ORG",
+"desc": "Organ transplant services are for people who need a new organ due to organ failure or other conditions",
+"scheme": false
+},
+{
+"code": "5232",
+"dept": "Suvarna Arogya Suraksha Trust",
+"name": "Rare Disease RD",
+"desc": "Rare disease services are for people with rare diseases, which are medical conditions that are uncommon.",
+"scheme": false
+},
+{
+"code": "5274",
+"dept": "Department of Public Instructions",
+"name": "Payment towards Application for Right To Education",
+"desc": "Payment towards Application for Right To Education",
+"scheme": false
+},
+{
+"code": "5275",
+"dept": "Department of Public Instructions",
+"name": "Disposal of application for Registration of new Educational Institutes  (Pre-Primary)",
+"desc": "Disposal of application for Registration of new Educational Institutes  (Pre-Primary)",
+"scheme": false
+},
+{
+"code": "5276",
+"dept": "Department of Public Instructions",
+"name": "Disposal of application for Registration of new educational institutions",
+"desc": "Disposal of application for Registration of new educational institutions",
+"scheme": false
+},
+{
+"code": "5277",
+"dept": "Department of Public Instructions",
+"name": "Issue of NOC to start CBSE or ICSE schools",
+"desc": "Issue of NOC to start CBSE / ICSE schools",
+"scheme": false
+},
+{
+"code": "5279",
+"dept": "Department of Public Instructions",
+"name": "Reimbursement of R.T.E fees",
+"desc": "Reimbursement of R.T.E fees (a) Reimbursement of R.T.E fees to R.T.E students who are allotted seats through department",
+"scheme": false
+},
+{
+"code": "5280",
+"dept": "Department of Public Instructions",
+"name": "Revaluation of Answer Scripts of the following exams conducted by the director (other exams)",
+"desc": "Revaluation of Answer Scripts of the following exams conducted by the director (other exams) a) D.Ed. Exam b) K.O.S. Exam c) Commerce Exam d) Hindi Shikshak e) Arabic Exam f) Film Acting Exam g) Rangashikshana h) Sanskrit Exam i) D.P.Ed Exam j) Music Exam",
+"scheme": false
+},
+{
+"code": "5282",
+"dept": "Department of Public Instructions",
+"name": "S.S.L.C Fail Marks card with Date of Birth",
+"desc": "S.S.L.C Fail Marks card with Date of Birth",
+"scheme": false
+},
+{
+"code": "5313",
+"dept": "Karnataka Maratha Communities Development Corporation Limited",
+"name": "Arivu Educational Loan Scheme renewal",
+"desc": "Arivu Educational Loan Scheme renewal",
+"scheme": true
+},
+{
+"code": "5314",
+"dept": "Karnataka Maratha Communities Development Corporation Limited",
+"name": "Foregin education Loan Scheme  Fresh",
+"desc": "Foregin education Loan Scheme  Fresh",
+"scheme": true
+},
+{
+"code": "5315",
+"dept": "Karnataka Maratha Communities Development Corporation Limited",
+"name": "Foregin education Loan Scheme  Renewal",
+"desc": "Foregin education Loan Scheme  Renewal",
+"scheme": true
+},
+{
+"code": "5316",
+"dept": "Karnataka Maratha Communities Development Corporation Limited",
+"name": "Maratha Military Hotel",
+"desc": "Maratha Military Hotel",
+"scheme": false
+},
+{
+"code": "5317",
+"dept": "Karnataka Maratha Communities Development Corporation Limited",
+"name": "Scheme for Subsidizing Loans through Commercial Banks under Self Employment Scheme Chaitanya Yojana",
+"desc": "Scheme for Subsidizing Loans through Commercial Banks under Self Employment Scheme Chaitanya Yojana",
+"scheme": true
+},
+{
+"code": "5318",
+"dept": "Karnataka Maratha Communities Development Corporation Limited",
+"name": "Shahaji Raje Samrudi Yojane Self Employment Scheme Direct Loan",
+"desc": "Shahaji Raje Samrudi Yojane Self Employment Scheme Direct Loan",
+"scheme": true
+},
+{
+"code": "7093",
+"dept": "Education Department",
+"name": "Students Admission Details Of Accademic Year 2024-2025",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7094",
+"dept": "Education Department",
+"name": "1st Audiology and Speech Language Pathology",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7095",
+"dept": "Education Department",
+"name": "1st Hospital Administration",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7096",
+"dept": "Education Department",
+"name": "1st Medical Laboratory Technology",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7097",
+"dept": "Education Department",
+"name": "1st Perfusion Technology",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7098",
+"dept": "Education Department",
+"name": "1st Radiotheraphy Technology",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7099",
+"dept": "Education Department",
+"name": "1st BPH",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7100",
+"dept": "Education Department",
+"name": "1st Cardiac Care Technology",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7101",
+"dept": "Education Department",
+"name": "1st Emergency Medicine Technology",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7102",
+"dept": "Education Department",
+"name": "1st Imaging Technology",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7105",
+"dept": "Education Department",
+"name": "2nd B.Pharma",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7114",
+"dept": "Education Department",
+"name": "1st Year - BPT",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7115",
+"dept": "Education Department",
+"name": "PB.B.Sc (Nursing)",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7124",
+"dept": "Education Department",
+"name": "M.Sc (Nursing)",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7103",
+"dept": "Education Department",
+"name": "2nd Anaesthesia and Operation Theatre Technology",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7104",
+"dept": "Education Department",
+"name": "3rd year BPT",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7106",
+"dept": "Education Department",
+"name": "Psychiatric Social Work",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7107",
+"dept": "Education Department",
+"name": "1st Respiratory Care Technology",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7108",
+"dept": "Education Department",
+"name": "1st Renal Dialysis Technology",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7109",
+"dept": "Education Department",
+"name": "1st Prosthetics and Orthotics",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7110",
+"dept": "Education Department",
+"name": "1st Optometry",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7111",
+"dept": "Education Department",
+"name": "1st Occupational Therapy",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7112",
+"dept": "Education Department",
+"name": "1st Neuro Science Technology",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7113",
+"dept": "Education Department",
+"name": "Online Student Admission Information System",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7116",
+"dept": "Education Department",
+"name": "2nd Perfusion Technology",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7117",
+"dept": "Education Department",
+"name": "1st Anaesthesia and Operation Theatre Technology",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7118",
+"dept": "Education Department",
+"name": "2nd Radiotheraphy Technology",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7130",
+"dept": "Education Department",
+"name": "Pharm D PB",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7131",
+"dept": "Education Department",
+"name": "M.Pharma",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7155",
+"dept": "Education Department",
+"name": "Make Online payment",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7156",
+"dept": "Education Department",
+"name": "To print acknowledgement",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7119",
+"dept": "Education Department",
+"name": "2nd Public Health",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7120",
+"dept": "Education Department",
+"name": "PG Psychosocial Rehabilitation",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7121",
+"dept": "Education Department",
+"name": "PG Radiation Physics",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7122",
+"dept": "Education Department",
+"name": "PG Clinical Psychology",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7123",
+"dept": "Education Department",
+"name": "1st Renal Dialysis Technolgy",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7125",
+"dept": "Education Department",
+"name": "2nd Cardiac Care Technology",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7126",
+"dept": "Education Department",
+"name": "Clinical Psychology",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7127",
+"dept": "Education Department",
+"name": "PG Echo Cardiography",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7128",
+"dept": "Education Department",
+"name": "PG Clinical Research",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7129",
+"dept": "Education Department",
+"name": "PG Renal Dialysis Technology",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7132",
+"dept": "Education Department",
+"name": "2nd Respiratory Care Technology",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7133",
+"dept": "Education Department",
+"name": "PG Prosthetics and Orthotics",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7134",
+"dept": "Education Department",
+"name": "2nd Renal Dialysis Technolgy",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7199",
+"dept": "Education Department",
+"name": "Chief Minister Meenugarara vidyanidhi",
+"desc": "",
+"scheme": true
+},
+{
+"code": "7200",
+"dept": "Education Department",
+"name": "Chief Minister Raitha Vidyanidhi",
+"desc": "",
+"scheme": true
+},
+{
+"code": "7201",
+"dept": "Education Department",
+"name": "Chief Minister Agriculture Labour Vidyanidhi",
+"desc": "",
+"scheme": true
+},
+{
+"code": "7202",
+"dept": "Education Department",
+"name": "NRI Forum Karnataka Non-Resident Kannadigaas Registration",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7135",
+"dept": "Education Department",
+"name": "PG Optometry",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7136",
+"dept": "Education Department",
+"name": "2nd Prosthetics and Orthotics",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7137",
+"dept": "Education Department",
+"name": "Masters in Physiotherapy",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7138",
+"dept": "Education Department",
+"name": "PG Medical Laboratory Technology",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7139",
+"dept": "Education Department",
+"name": "PG Imaging Technology",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7140",
+"dept": "Education Department",
+"name": "2nd Neuro Science Technology",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7141",
+"dept": "Education Department",
+"name": "2nd Optometry",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7142",
+"dept": "Education Department",
+"name": "PG Hospital Administration",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7143",
+"dept": "Education Department",
+"name": "PG Public Health",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7144",
+"dept": "Education Department",
+"name": "PG Perfusion Technology",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7145",
+"dept": "Education Department",
+"name": "B.Sc.Nursing",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7146",
+"dept": "Education Department",
+"name": "Master of Computer Applications (MCA) Online Program",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7147",
+"dept": "Education Department",
+"name": "Bachelor of Computer Application (BCA) Online Program",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7148",
+"dept": "Education Department",
+"name": "Registration for NAD",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7149",
+"dept": "Education Department",
+"name": "Application for Post Metric Scholarship",
+"desc": "",
+"scheme": true
+},
+{
+"code": "7150",
+"dept": "Education Department",
+"name": "APPLICATION FOR PHOTO COPY, REVALUATION & RETOTALLING OF II PUC",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7151",
+"dept": "Education Department",
+"name": "MBBS (Online Payments)",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7152",
+"dept": "Education Department",
+"name": "Online Admission and Student portal",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7153",
+"dept": "Education Department",
+"name": "Online application for Convocation Certificate",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7154",
+"dept": "Education Department",
+"name": "Online application Status",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7169",
+"dept": "Education Department",
+"name": "Providing Information related to the Board activities through website",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7170",
+"dept": "Education Department",
+"name": "Providing Information related to Access and Benefit Sharing(ABS) and ABS Agreements",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7172",
+"dept": "Education Department",
+"name": "Pre-Matric Scholarship for children studying in classes 1 to 10 whose parent is engaged in unclean occupation",
+"desc": "",
+"scheme": true
+},
+{
+"code": "7174",
+"dept": "Education Department",
+"name": "Pre-Matric Scholarship for Scheduled Tribe students studying in classes 9 a 10 a whose family",
+"desc": "",
+"scheme": true
+},
+{
+"code": "7175",
+"dept": "Education Department",
+"name": "Pre-Matric Scholarship for NT OR SNT students studying in classes 1 to 10 with family income 2.5 Lak",
+"desc": "",
+"scheme": true
+},
+{
+"code": "7171",
+"dept": "Education Department",
+"name": "Pre-Matric Scholarship for Scheduled Caste students studying in classes 9 and 10 and whose family income is below 2.5 lakhs",
+"desc": "",
+"scheme": true
+},
+{
+"code": "7173",
+"dept": "Education Department",
+"name": "Pre-Matric Scholarship for Scheduled Tribe students studying in classes 1 to 8 & whose family income is less than 6 lakhs",
+"desc": "",
+"scheme": true
+},
+{
+"code": "7176",
+"dept": "Education Department",
+"name": "Pre-Matric Scholarship under PM Yashasvi scheme",
+"desc": "",
+"scheme": true
+},
+{
+"code": "7177",
+"dept": "Education Department",
+"name": "Pre-matric scholarship for minority students studying in classes 1 to 8 with family",
+"desc": "",
+"scheme": true
+},
+{
+"code": "7178",
+"dept": "Education Department",
+"name": "Pre-Matric Scholarship for differently-abled students studying in classes 1 to 10",
+"desc": "",
+"scheme": true
+},
+{
+"code": "7179",
+"dept": "Education Department",
+"name": "Chief Minister Raitha Vidyanidhi for girls studying in classes 8 to 10 who belong to farmer famil",
+"desc": "",
+"scheme": true
+},
+{
+"code": "7180",
+"dept": "Education Department",
+"name": "Chief Minister Agriculture Labour Vidyanidhi for girls studying in classes 8 to 10",
+"desc": "",
+"scheme": true
+},
+{
+"code": "7181",
+"dept": "Education Department",
+"name": "Chief Minister Meenugaarara Vidyanidhi for girls studying in classes 8 to 10",
+"desc": "",
+"scheme": true
+},
+{
+"code": "7182",
+"dept": "Education Department",
+"name": "Scheduled Caste students with annual family income below 2.5 lakhs who are studying in post matric",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7183",
+"dept": "Education Department",
+"name": "Scheduled Tribe students with annual family income below 2.5 lakhs who are studying in post matric",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7184",
+"dept": "Education Department",
+"name": "Pre-Metric Scholarship",
+"desc": "",
+"scheme": true
+},
+{
+"code": "7185",
+"dept": "Education Department",
+"name": "Post Metric Scholarship",
+"desc": "",
+"scheme": true
+},
+{
+"code": "7187",
+"dept": "Education Department",
+"name": "Fee Reimbursement or Scholarship under PM Yashasvi scheme",
+"desc": "",
+"scheme": true
+},
+{
+"code": "7188",
+"dept": "Education Department",
+"name": "Vidyasiri - Payment of educational maintenance allowance to students who do not get seats",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7189",
+"dept": "Education Department",
+"name": "Fee Reimbursement or Scholarship under PM Yashasvi scheme for Category-1",
+"desc": "",
+"scheme": true
+},
+{
+"code": "7190",
+"dept": "Education Department",
+"name": "Vidyasiri -Payment of educational maintenance allowance to students who do not get seats Category-1",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7191",
+"dept": "Education Department",
+"name": "Fee reimbursement for minority students with annual family income below 2 lakhs",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7192",
+"dept": "Education Department",
+"name": "Vidyasiri",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7193",
+"dept": "Education Department",
+"name": "Fee Reimbursement to SC and ST Students for Ayush Department",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7194",
+"dept": "Education Department",
+"name": "Sandeepani Shishyavetana for Brahmin EWS students less than 8 lakh income",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7195",
+"dept": "Education Department",
+"name": "Fee Reimbursement for Brahmin EWS students less than8 lakh income",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7196",
+"dept": "Education Department",
+"name": "Fee Reimbursement for differently abled students studying in post matric courses without any caste",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7197",
+"dept": "Education Department",
+"name": "Chief Minister Nekar Vidyanidhi",
+"desc": "",
+"scheme": true
+},
+{
+"code": "7198",
+"dept": "Education Department",
+"name": "Chief Minister Sarige Vidyanidhi",
+"desc": "",
+"scheme": true
+},
+{
+"code": "117",
+"dept": "Revenue Department",
+"name": "Agricultural Family member Certificate",
+"desc": "Agricultural Family member Certificate",
+"scheme": false
+},
+{
+"code": "126",
+"dept": "Revenue Department",
+"name": "Agricultural Labour Certificate",
+"desc": "Agricultural Labour Certificate",
+"scheme": false
+},
+{
+"code": "124",
+"dept": "Revenue Department",
+"name": "Agriculturist Certificate",
+"desc": "Agriculturist Certificate",
+"scheme": false
+},
+{
+"code": "138",
+"dept": "Revenue Department",
+"name": "Attestation of family tree",
+"desc": "Attestation of family tree",
+"scheme": false
+},
+{
+"code": "129",
+"dept": "Revenue Department",
+"name": "Bonafide Certificate",
+"desc": "Bonafide Certificate",
+"scheme": false
+},
+{
+"code": "107",
+"dept": "Revenue Department",
+"name": "Caste Certificate",
+"desc": "Caste Certificate (Cat-A)",
+"scheme": false
+},
+{
+"code": "140",
+"dept": "Revenue Department",
+"name": "Crop Certificate",
+"desc": "Crop Certificate",
+"scheme": false
+},
+{
+"code": "133",
+"dept": "Revenue Department",
+"name": "Domicile Certificate",
+"desc": "Domicile Certificate",
+"scheme": false
+},
+{
+"code": "139",
+"dept": "Revenue Department",
+"name": "HK Region Residence and Eligibility",
+"desc": "HK Region Residence and Eligibility",
+"scheme": false
+},
+{
+"code": "111",
+"dept": "Revenue Department",
+"name": "Income Certificate",
+"desc": "Income Certificate",
+"scheme": false
+},
+{
+"code": "137",
+"dept": "Revenue Department",
+"name": "Income Certificate for compassionate appointment",
+"desc": "Income Certificate for compassionate appointment",
+"scheme": false
+},
+{
+"code": "128",
+"dept": "Revenue Department",
+"name": "Land Holding Certificate",
+"desc": "Land Holding Certificate",
+"scheme": false
+},
+{
+"code": "119",
+"dept": "Revenue Department",
+"name": "Landless Certificate",
+"desc": "Landless Certificate",
+"scheme": false
+},
+{
+"code": "116",
+"dept": "Revenue Department",
+"name": "Living Certificate",
+"desc": "Living Certificate",
+"scheme": false
+},
+{
+"code": "112",
+"dept": "Revenue Department",
+"name": "No Tenancy Certificate",
+"desc": "No Tenancy Certificate",
+"scheme": false
+},
+{
+"code": "127",
+"dept": "Revenue Department",
+"name": "Non-Creamy layer Certificate",
+"desc": "Non-Creamy layer Certificate",
+"scheme": false
+},
+{
+"code": "109",
+"dept": "Revenue Department",
+"name": "OBC Certificate (Central)",
+"desc": "OBC Certificate (Central)",
+"scheme": false
+},
+{
+"code": "110",
+"dept": "Revenue Department",
+"name": "Residence Certificate",
+"desc": "Residence Certificate",
+"scheme": false
+},
+{
+"code": "125",
+"dept": "Revenue Department",
+"name": "Small and Marginal Farmer Certificate",
+"desc": "Small and Marginal Farmer Certificate",
+"scheme": false
+},
+{
+"code": "130",
+"dept": "Revenue Department",
+"name": "Solvency Certificate",
+"desc": "Solvency Certificate",
+"scheme": false
+},
+{
+"code": "122",
+"dept": "Revenue Department",
+"name": "Unemployment Certificate",
+"desc": "Unemployment Certificate",
+"scheme": false
+},
+{
+"code": "7316",
+"dept": "Rural Development and Panchayat Raj Department",
+"name": "Gandhi Sakshi Kayaka GSK",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7317",
+"dept": "Rural Development and Panchayat Raj Department",
+"name": "e Swathu",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7318",
+"dept": "Rural Development and Panchayat Raj Department",
+"name": "Apply for permission to set up industrial or agriculture-based production units under the Rural local bodies. Facilitate rural development by streamlining approvals for economic and agricultural ventures",
+"desc": "",
+"scheme": false
+},
+{
+"code": "7319",
+"dept": "Rural Development and Panchayat Raj Department",
+"name": "Submit requests for work-related activities under government employment schemes to ensure timely job allocation. Support community development while securing livelihood opportunities through approved projects",
+"desc": "",
+"scheme": true
+},
+{
+"code": "7320",
+"dept": "Rural Development and Panchayat Raj Department",
+"name": "Apply for a Unique Disability Identity Card to access government benefits and services for individuals with disabilities in rural areas. Empower disabled individuals by providing them with an official recognition for better inclusion and support",
+"desc": "",
+"scheme": false
+}
+]
