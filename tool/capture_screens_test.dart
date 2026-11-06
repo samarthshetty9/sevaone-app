@@ -118,11 +118,11 @@ void main() {
     Shot('Schemes', 'matches', 'Your matches', route: 'eligibility', h: 1200, setup: () => app.profile.completed = true),
     Shot('Schemes', 'life', 'Life events', route: 'life'),
     Shot('Schemes', 'lifeevent', 'Situation steps', page: LifeEventDetail(lifeEvents.first), h: 960),
-    Shot('Track', 'track', 'Track tab', tab: 2, h: 980),
+    Shot('Track', 'track', 'Track tab', tab: 3, h: 980),
     Shot('Track', 'status', 'Application status', page: ApplicationDetail(app.applications.first)),
-    Shot('Documents', 'docs0', 'Documents (not linked)', tab: 3, h: 1250, setup: () => app.unlinkDigilocker()),
+    Shot('Documents', 'docs0', 'Documents (not linked)', tab: 2, h: 1250, setup: () => app.unlinkDigilocker()),
     Shot('Documents', 'link', 'DigiLocker consent', route: 'digilocker', h: 1020),
-    Shot('Documents', 'docs1', 'Documents (linked)', tab: 3, h: 1500, setup: linked),
+    Shot('Documents', 'docs1', 'Documents (linked)', tab: 2, h: 1500, setup: linked),
     Shot('Documents', 'doc', 'Document view', page: DocumentView(docTypes[1])),
     Shot('Documents', 'verifyhome', 'Verify a document', route: 'verify'),
     Shot('Documents', 'verify', 'Verified result', page: VerifyScreen(docTypes[1]),
@@ -159,12 +159,11 @@ void main() {
     Shot('Local info', 'digipin', 'DIGIPIN', route: 'digipin', act: (t) async => t.secs(2)),
     Shot('Local info', 'totp', 'Authenticator', route: 'totp'),
     Shot('Local info', 'signal', 'Mobile signal check', route: 'signal', act: (t) async => t.secs(3)),
-    Shot('Profile', 'profile', 'Profile (full page)', tab: 4, h: 1420),
+    Shot('Profile', 'profile', 'Profile (full page)', route: 'profile', h: 1420),
     Shot('Profile', 'family', 'Family profiles', route: 'family'),
     Shot('Profile', 'qr', 'My QR code', route: 'myqr'),
     Shot('Profile', 'isl', 'Sign language chatbot', route: 'isl'),
     Shot('Profile', 'a11y', 'Accessibility', route: 'accessibility', h: 960),
-    Shot('Profile', 'features', 'Feature map', route: 'features', h: 1500),
     Shot('Kannada and dark mode', 'kn_home', 'Home in Kannada', h: 2050, setup: () => app.lang = 'kn'),
     Shot('Kannada and dark mode', 'kn_ai', 'Seva AI in Kannada', setup: () {
       app.lang = 'kn';
@@ -172,7 +171,7 @@ void main() {
     }),
     Shot('Kannada and dark mode', 'kn_services', 'Services in Kannada', tab: 1, setup: () => app.lang = 'kn'),
     Shot('Kannada and dark mode', 'dark_home', 'Home in dark mode', setup: () => app.darkMode = true),
-    Shot('Kannada and dark mode', 'dark_docs', 'Documents in dark mode', tab: 3, setup: () {
+    Shot('Kannada and dark mode', 'dark_docs', 'Documents in dark mode', tab: 2, setup: () {
       app.darkMode = true;
       linked();
     }),

@@ -3,8 +3,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 import '../app/state.dart';
+import '../app/theme.dart';
 import '../data/models.dart';
 import '../data/seed.dart';
+import '../widgets/art.dart';
 import '../widgets/common.dart';
 import 'services.dart';
 
@@ -113,12 +115,20 @@ class LifeEventsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(context.tr('Life events', 'ಜೀವನದ ಘಟನೆಗಳು'))),
+      appBar: SevaBar(title: Text(context.tr('Life events', 'ಜೀವನದ ಘಟನೆಗಳು'))),
       body: ListView(padding: const EdgeInsets.all(16), children: [
-        Text(
-          context.tr('Tell us what is happening. We list everything you will need.',
-              'ಏನು ನಡೆಯುತ್ತಿದೆ ಎಂದು ತಿಳಿಸಿ. ನಿಮಗೆ ಬೇಕಾದ ಎಲ್ಲವನ್ನೂ ಪಟ್ಟಿ ಮಾಡುತ್ತೇವೆ.'),
-          style: TextStyle(color: context.cs.onSurfaceVariant),
+        GlowPanel(
+          child: Row(children: [
+            Expanded(
+              child: Text(
+                context.tr('Tell us what is happening. We list everything you will need.',
+                    'ಏನು ನಡೆಯುತ್ತಿದೆ ಎಂದು ತಿಳಿಸಿ. ನಿಮಗೆ ಬೇಕಾದ ಎಲ್ಲವನ್ನೂ ಪಟ್ಟಿ ಮಾಡುತ್ತೇವೆ.'),
+                style: context.tt.titleMedium?.copyWith(color: Colors.white),
+              ),
+            ),
+            const SizedBox(width: 8),
+            const IconArt(Icons.event_note, size: 72),
+          ]),
         ),
         const SizedBox(height: 12),
         for (final e in lifeEvents)
@@ -154,17 +164,34 @@ class LifeEventDetail extends StatelessWidget {
     final all = [...services, ...schemes];
     final done = e.steps.where((st) => s.doneSteps.contains('${e.id}:${st.title.en}')).length;
     return Scaffold(
-      appBar: AppBar(title: Text(context.loc(e.title))),
+      appBar: SevaBar(title: Text(context.loc(e.title))),
       body: ListView(padding: const EdgeInsets.all(16), children: [
-        Text(context.loc(e.intro), style: const TextStyle(fontSize: 15.5)),
-        const SizedBox(height: 12),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(6),
-          child: LinearProgressIndicator(value: done / e.steps.length, minHeight: 6),
+        GlowPanel(
+          colors: const [Color(0xFF7A3FC4), Color(0xFFAE55C9)],
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Row(children: [
+              Expanded(
+                child: Text(context.loc(e.intro),
+                    style: context.tt.titleMedium?.copyWith(color: Colors.white)),
+              ),
+              const SizedBox(width: 8),
+              IconArt(e.icon, size: 68),
+            ]),
+            const SizedBox(height: 10),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(6),
+              child: LinearProgressIndicator(
+                value: done / e.steps.length,
+                minHeight: 6,
+                color: Seva.gold,
+                backgroundColor: Colors.white24,
+              ),
+            ),
+            const SizedBox(height: 6),
+            Text(context.tr('$done of ${e.steps.length} done', '${e.steps.length} ರಲ್ಲಿ $done ಪೂರ್ಣ'),
+                style: const TextStyle(color: Colors.white)),
+          ]),
         ),
-        const SizedBox(height: 6),
-        Text(context.tr('$done of ${e.steps.length} done', '${e.steps.length} ರಲ್ಲಿ $done ಪೂರ್ಣ'),
-            style: TextStyle(color: context.cs.onSurfaceVariant)),
         SectionTitle(context.tr('Your steps', 'ನಿಮ್ಮ ಹಂತಗಳು')),
         const SizedBox(height: 6),
         for (final st in e.steps)
@@ -279,19 +306,24 @@ class _CalculatorsScreenState extends State<CalculatorsScreen> {
           ),
         ]);
     return Scaffold(
-      appBar: AppBar(title: Text(context.tr('Calculators', 'ಕ್ಯಾಲ್ಕುಲೇಟರ್‌ಗಳು'))),
+      appBar: SevaBar(title: Text(context.tr('Calculators', 'ಕ್ಯಾಲ್ಕುಲೇಟರ್‌ಗಳು'))),
       body: ListView(padding: const EdgeInsets.all(16), children: [
         Wrap(spacing: 8, children: [
           for (final e in kinds.entries)
             ChoiceChip(label: Text(e.value), selected: kind == e.key, onSelected: (_) => pick(e.key)),
         ]),
         const SizedBox(height: 14),
-        SevaCard(
-          color: context.cs.primary.withValues(alpha: 0.09),
-          child: Column(children: [
-            Text(res.$1, style: TextStyle(color: context.cs.onSurfaceVariant)),
-            Text(res.$2, style: context.tt.headlineMedium),
-            Text(res.$3),
+        GlowPanel(
+          colors: const [Color(0xFF7A3FC4), Color(0xFF5553D2)],
+          child: Row(children: [
+            Expanded(
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Text(res.$1, style: const TextStyle(color: Colors.white70)),
+                Text(res.$2, style: context.tt.headlineMedium?.copyWith(color: Colors.white, fontSize: 32)),
+                Text(res.$3, style: const TextStyle(color: Colors.white)),
+              ]),
+            ),
+            const IconArt(Icons.calculate, size: 76),
           ]),
         ),
         const SizedBox(height: 16),
@@ -300,6 +332,57 @@ class _CalculatorsScreenState extends State<CalculatorsScreen> {
         slider(context.tr('Interest rate', 'ಬಡ್ಡಿ ದರ'), '${rate.toStringAsFixed(1)}%', rate, 1, 15, 28,
             (x) => rate = x),
         slider(context.tr('Years', 'ವರ್ಷಗಳು'), '${years.round()}', years, 1, 30, 29, (x) => years = x.roundToDouble()),
+        const SizedBox(height: 8),
+        SevaCard(
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text(context.tr('Where the money goes', 'ಹಣ ಎಲ್ಲಿಗೆ ಹೋಗುತ್ತದೆ'), style: context.tt.titleMedium),
+            const SizedBox(height: 10),
+            Builder(builder: (_) {
+              final principal = kind == 'ppf' ? amount * years : amount;
+              final r = rate / 100;
+              final extra = switch (kind) {
+                'emi' => () {
+                    final m = r / 12;
+                    final n = years * 12;
+                    return amount * m * pow(1 + m, n) / (pow(1 + m, n) - 1) * n - amount;
+                  }(),
+                'fd' => amount * pow(1 + r / 4, 4 * years) - amount,
+                _ => amount * ((pow(1 + r, years) - 1) / r) * (1 + r) - principal,
+              };
+              final share = principal / (principal + extra);
+              return Column(children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Row(children: [
+                    Expanded(
+                      flex: (share * 100).round().clamp(1, 99),
+                      child: Container(height: 16, color: context.cs.primary),
+                    ),
+                    Expanded(
+                      flex: 100 - (share * 100).round().clamp(1, 99),
+                      child: Container(height: 16, color: Seva.gold),
+                    ),
+                  ]),
+                ),
+                const SizedBox(height: 10),
+                for (final (c, k, v) in [
+                  (context.cs.primary, kind == 'emi' ? context.tr('Loan amount', 'ಸಾಲದ ಮೊತ್ತ') : context.tr('You put in', 'ನೀವು ಹಾಕಿದ್ದು'), money(principal)),
+                  (Seva.gold, context.tr('Interest', 'ಬಡ್ಡಿ'), money(extra)),
+                ])
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 3),
+                    child: Row(children: [
+                      CircleAvatar(radius: 5, backgroundColor: c),
+                      const SizedBox(width: 8),
+                      Expanded(child: Text(k)),
+                      Text(v, style: const TextStyle(fontWeight: FontWeight.w700)),
+                    ]),
+                  ),
+              ]);
+            }),
+          ]),
+        ),
+        const SizedBox(height: 10),
         Text(
           context.tr('For estimates only. Rates are examples.', 'ಅಂದಾಜಿಗೆ ಮಾತ್ರ. ದರಗಳು ಉದಾಹರಣೆಗಳು.'),
           textAlign: TextAlign.center,

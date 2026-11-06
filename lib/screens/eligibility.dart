@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../app/state.dart';
 import '../data/seed.dart';
+import '../app/theme.dart';
+import '../widgets/art.dart';
 import '../widgets/common.dart';
 import 'services.dart';
 
@@ -27,15 +29,20 @@ class _EligibilityScreenState extends State<EligibilityScreen> {
   }
 
   Widget choices(List<(String, String)> items, String value, void Function(String) pick) {
-    return Wrap(spacing: 8, runSpacing: 8, children: [
+    return Column(children: [
       for (final (k, label) in items)
-        ChoiceChip(
-          label: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 2),
-            child: Text(label),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: SevaCard(
+            color: value == k ? context.cs.primary.withValues(alpha: .1) : null,
+            onTap: () => app.set(() => pick(k)),
+            semanticLabel: label,
+            child: Row(children: [
+              Expanded(child: Text(label, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15.5))),
+              Icon(value == k ? Icons.radio_button_checked : Icons.radio_button_off,
+                  color: value == k ? context.cs.primary : context.cs.onSurfaceVariant),
+            ]),
           ),
-          selected: value == k,
-          onSelected: (_) => app.set(() => pick(k)),
         ),
     ]);
   }
@@ -50,7 +57,8 @@ class _EligibilityScreenState extends State<EligibilityScreen> {
       0 => (
           context.tr('How old are you?', 'ನಿಮ್ಮ ವಯಸ್ಸು ಎಷ್ಟು?'),
           Column(children: [
-            Text('${p.age}', style: context.tt.headlineMedium),
+            Text('${p.age}', style: context.tt.headlineMedium?.copyWith(fontSize: 64, color: context.cs.primary)),
+            Text(context.tr('years', 'ವರ್ಷಗಳು')),
             Slider(
               min: 14,
               max: 90,
@@ -83,7 +91,7 @@ class _EligibilityScreenState extends State<EligibilityScreen> {
       3 => (
           context.tr('Yearly family income', 'ವಾರ್ಷಿಕ ಕುಟುಂಬ ಆದಾಯ'),
           Column(children: [
-            Text(money(p.income), style: context.tt.headlineMedium),
+            Text(money(p.income), style: context.tt.headlineMedium?.copyWith(fontSize: 44, color: context.cs.primary)),
             Slider(
               min: 0,
               max: 1000000,
@@ -108,13 +116,11 @@ class _EligibilityScreenState extends State<EligibilityScreen> {
           context.tr('Do these apply to you?', 'ಇವು ನಿಮಗೆ ಅನ್ವಯಿಸುತ್ತವೆಯೇ?'),
           Column(children: [
             SwitchListTile(
-              contentPadding: EdgeInsets.zero,
               title: Text(context.tr('BPL ration card', 'ಬಿಪಿಎಲ್ ಪಡಿತರ ಚೀಟಿ')),
               value: p.bpl,
               onChanged: (v) => app.set(() => p.bpl = v),
             ),
             SwitchListTile(
-              contentPadding: EdgeInsets.zero,
               title: Text(context.tr('Person with disability', 'ವಿಕಲಚೇತನ ವ್ಯಕ್ತಿ')),
               value: p.disabled,
               onChanged: (v) => app.set(() => p.disabled = v),
@@ -124,7 +130,7 @@ class _EligibilityScreenState extends State<EligibilityScreen> {
     };
 
     return Scaffold(
-      appBar: AppBar(
+      appBar: SevaBar(
         title: Text(context.tr('Scheme finder', 'ಯೋಜನೆ ಶೋಧಕ')),
         leading: step > 0
             ? IconButton(
@@ -134,22 +140,43 @@ class _EligibilityScreenState extends State<EligibilityScreen> {
               )
             : null,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(6),
-            child: LinearProgressIndicator(value: (step + 1) / 6, minHeight: 6),
-          ),
-          const SizedBox(height: 8),
-          Text(context.tr('Question ${step + 1} of 6', 'ಪ್ರಶ್ನೆ ${step + 1} / 6'),
-              style: TextStyle(color: context.cs.onSurfaceVariant)),
-          const SizedBox(height: 22),
-          Semantics(header: true, child: Text(title, style: context.tt.headlineSmall)),
-          const SizedBox(height: 20),
-          body,
-        ]),
-      ),
+      body: ListView(padding: const EdgeInsets.all(16), children: [
+        GlowPanel(
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text(context.tr('Question ${step + 1} of 6', 'ಪ್ರಶ್ನೆ ${step + 1} / 6'),
+                style: const TextStyle(color: Colors.white70)),
+            const SizedBox(height: 4),
+            Semantics(
+              header: true,
+              child: Text(title, style: context.tt.headlineSmall?.copyWith(color: Colors.white)),
+            ),
+            const SizedBox(height: 12),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(6),
+              child: LinearProgressIndicator(
+                value: (step + 1) / 6,
+                minHeight: 6,
+                color: Seva.gold,
+                backgroundColor: Colors.white24,
+              ),
+            ),
+          ]),
+        ),
+        const SizedBox(height: 18),
+        body,
+        const SizedBox(height: 14),
+        SevaCard(
+          color: context.cs.primary.withValues(alpha: .08),
+          child: Row(children: [
+            Icon(Icons.lock_outline, color: context.cs.primary),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Text(context.tr('We only use your answers to match schemes.',
+                  'ನಿಮ್ಮ ಉತ್ತರಗಳನ್ನು ಯೋಜನೆ ಹೊಂದಿಸಲು ಮಾತ್ರ ಬಳಸುತ್ತೇವೆ.')),
+            ),
+          ]),
+        ),
+      ]),
       bottomNavigationBar: BottomAction(
         child: FilledButton(
           onPressed: next,
@@ -166,15 +193,25 @@ class _EligibilityScreenState extends State<EligibilityScreen> {
     final match = s.recommendedSchemes;
     final others = schemes.where((v) => !match.contains(v)).toList();
     return Scaffold(
-      appBar: AppBar(title: Text(context.tr('Your matches', 'ನಿಮ್ಮ ಹೊಂದಾಣಿಕೆಗಳು'))),
+      appBar: SevaBar(title: Text(context.tr('Your matches', 'ನಿಮ್ಮ ಹೊಂದಾಣಿಕೆಗಳು'))),
       body: ListView(padding: const EdgeInsets.all(16), children: [
-        Text(context.tr('${match.length} schemes match you', '${match.length} ಯೋಜನೆಗಳು ನಿಮಗೆ ಹೊಂದುತ್ತವೆ'),
-            style: context.tt.headlineSmall),
-        const SizedBox(height: 4),
-        Text(
-          context.tr('Based on your answers. The department makes the final decision.',
-              'ನಿಮ್ಮ ಉತ್ತರಗಳ ಆಧಾರದ ಮೇಲೆ. ಅಂತಿಮ ನಿರ್ಧಾರ ಇಲಾಖೆಯದು.'),
-          style: TextStyle(color: context.cs.onSurfaceVariant),
+        GlowPanel(
+          colors: const [Color(0xFF0B5D5A), Color(0xFF0E9F8E)],
+          child: Row(children: [
+            Expanded(
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Text(context.tr('${match.length} schemes match you', '${match.length} ಯೋಜನೆಗಳು ನಿಮಗೆ ಹೊಂದುತ್ತವೆ'),
+                    style: context.tt.headlineSmall?.copyWith(color: Colors.white)),
+                const SizedBox(height: 4),
+                Text(
+                  context.tr('Based on your answers. The department makes the final decision.',
+                      'ನಿಮ್ಮ ಉತ್ತರಗಳ ಆಧಾರದ ಮೇಲೆ. ಅಂತಿಮ ನಿರ್ಧಾರ ಇಲಾಖೆಯದು.'),
+                  style: const TextStyle(color: Colors.white),
+                ),
+              ]),
+            ),
+            const IconArt(Icons.auto_awesome, size: 72),
+          ]),
         ),
         const SizedBox(height: 12),
         if (match.isEmpty)

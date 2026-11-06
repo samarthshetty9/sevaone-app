@@ -29,7 +29,7 @@ class _ApplyFlowState extends State<ApplyFlow> {
   Application? done;
 
   List<String> get titles => [
-        tx('Your details', 'ನಿಮ್ಮ ವಿವರಗಳು'),
+        tx('Details', 'ವಿವರಗಳು'),
         tx('Documents', 'ದಾಖಲೆಗಳು'),
         tx('Sign', 'ಸಹಿ'),
         tx('Review', 'ಪರಿಶೀಲನೆ'),
@@ -57,25 +57,54 @@ class _ApplyFlowState extends State<ApplyFlow> {
     if (done != null) return _Submitted(done!);
     final s = context.watchApp;
     return Scaffold(
-      appBar: AppBar(
+      appBar: SevaBar(
         title: Text(context.loc(widget.v.name)),
-        actions: const [DemoChip(), SizedBox(width: 16)],
       ),
       body: Column(children: [
         Padding(
-          padding: const EdgeInsets.fromLTRB(16, 6, 16, 4),
+          padding: const EdgeInsets.fromLTRB(16, 14, 16, 2),
           child: Semantics(
             label: context.tr('Step ${step + 1} of 4, ${titles[step]}',
                 'ಹಂತ ${step + 1} / 4, ${titles[step]}'),
             excludeSemantics: true,
-            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text('${step + 1}/4 · ${titles[step]}',
-                  style: const TextStyle(fontWeight: FontWeight.w600)),
-              const SizedBox(height: 6),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(6),
-                child: LinearProgressIndicator(value: (step + 1) / 4, minHeight: 6),
-              ),
+            child: Row(children: [
+              for (var i = 0; i < 4; i++) ...[
+                if (i > 0)
+                  Expanded(
+                    child: Container(
+                      height: 3,
+                      margin: const EdgeInsets.only(bottom: 20),
+                      color: i <= step
+                          ? context.cs.primary
+                          : context.cs.primary.withValues(alpha: .15),
+                    ),
+                  ),
+                Column(mainAxisSize: MainAxisSize.min, children: [
+                  CircleAvatar(
+                    radius: 15,
+                    backgroundColor:
+                        i <= step ? context.cs.primary : context.cs.primary.withValues(alpha: .15),
+                    child: i < step
+                        ? Icon(Icons.check, size: 16, color: context.cs.onPrimary)
+                        : Text('${i + 1}',
+                            style: TextStyle(
+                                fontSize: 12.5,
+                                fontWeight: FontWeight.w700,
+                                color: i <= step ? context.cs.onPrimary : context.cs.primary)),
+                  ),
+                  const SizedBox(height: 4),
+                  SizedBox(
+                    width: 70,
+                    child: Text(titles[i],
+                        textAlign: TextAlign.center,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            fontSize: 11.5,
+                            fontWeight: i == step ? FontWeight.w700 : FontWeight.w500)),
+                  ),
+                ]),
+              ],
             ]),
           ),
         ),
@@ -117,18 +146,36 @@ class _ApplyFlowState extends State<ApplyFlow> {
                   fontSize: 15.5, color: context.cs.onSurface, fontWeight: FontWeight.w600)),
         );
     return [
-      Align(
-        alignment: Alignment.centerLeft,
-        child: Pill(context.tr('Prefilled from your profile', 'ನಿಮ್ಮ ಪ್ರೊಫೈಲ್‌ನಿಂದ ಭರ್ತಿಯಾಗಿದೆ'),
-            color: context.cs.secondary, icon: Icons.auto_awesome),
+      Text(context.tr('Check your details', 'ನಿಮ್ಮ ವಿವರಗಳನ್ನು ಪರಿಶೀಲಿಸಿ'), style: context.tt.titleLarge),
+      const SizedBox(height: 2),
+      Text(context.tr('We filled these in from your profile.', 'ನಿಮ್ಮ ಪ್ರೊಫೈಲ್‌ನಿಂದ ಇವುಗಳನ್ನು ಭರ್ತಿ ಮಾಡಲಾಗಿದೆ.'),
+          style: TextStyle(color: context.cs.onSurfaceVariant)),
+      const SizedBox(height: 12),
+      SevaCard(
+        padding: const EdgeInsets.fromLTRB(16, 6, 16, 6),
+        child: Column(children: [
+          row(context.tr('Name', 'ಹೆಸರು'), context.loc(citizenName)),
+          row(context.tr('Mobile', 'ಮೊಬೈಲ್'), citizenMobile),
+          row(context.tr('District', 'ಜಿಲ್ಲೆ'), context.loc(citizenDistrict)),
+          row(context.tr('Taluk', 'ತಾಲೂಕು'), context.tr('Bengaluru North', 'ಬೆಂಗಳೂರು ಉತ್ತರ')),
+          row(context.tr('Address', 'ವಿಳಾಸ'),
+              context.tr('12, 3rd Main, Malleshwaram', '12, 3ನೇ ಮುಖ್ಯ ರಸ್ತೆ, ಮಲ್ಲೇಶ್ವರಂ')),
+        ]),
       ),
-      const SizedBox(height: 8),
-      row(context.tr('Name', 'ಹೆಸರು'), context.loc(citizenName)),
-      row(context.tr('Mobile', 'ಮೊಬೈಲ್'), citizenMobile),
-      row(context.tr('District', 'ಜಿಲ್ಲೆ'), context.loc(citizenDistrict)),
-      row(context.tr('Taluk', 'ತಾಲೂಕು'), context.tr('Bengaluru North', 'ಬೆಂಗಳೂರು ಉತ್ತರ')),
-      row(context.tr('Address', 'ವಿಳಾಸ'),
-          context.tr('12, 3rd Main, Malleshwaram', '12, 3ನೇ ಮುಖ್ಯ ರಸ್ತೆ, ಮಲ್ಲೇಶ್ವರಂ')),
+      const SizedBox(height: 12),
+      SevaCard(
+        color: context.cs.primary.withValues(alpha: .08),
+        child: Row(children: [
+          Icon(Icons.schedule, color: context.cs.primary),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+                context.tr('Sakala guarantee: ready within ${widget.v.sakalaDays} days',
+                    'ಸಕಾಲ ಖಾತರಿ: ${widget.v.sakalaDays} ದಿನಗಳಲ್ಲಿ ಸಿದ್ಧ'),
+                style: const TextStyle(fontWeight: FontWeight.w600)),
+          ),
+        ]),
+      ),
     ];
   }
 
@@ -206,6 +253,26 @@ class _ApplyFlowState extends State<ApplyFlow> {
         style: TextStyle(color: context.cs.onSurfaceVariant),
       ),
       const SizedBox(height: 14),
+      SevaCard(
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Text(context.tr('You are signing', 'ನೀವು ಸಹಿ ಮಾಡುತ್ತಿರುವುದು'), style: context.tt.titleMedium),
+          const SizedBox(height: 8),
+          for (final t in [
+            context.loc(widget.v.name),
+            context.tr('${widget.v.docs.length} attached documents', '${widget.v.docs.length} ಲಗತ್ತಿಸಿದ ದಾಖಲೆಗಳು'),
+            context.tr('A declaration that the details are true', 'ವಿವರಗಳು ಸತ್ಯ ಎಂಬ ಘೋಷಣೆ'),
+          ])
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              child: Row(children: [
+                Icon(Icons.check_circle, size: 18, color: context.cs.secondary),
+                const SizedBox(width: 8),
+                Expanded(child: Text(t)),
+              ]),
+            ),
+        ]),
+      ),
+      const SizedBox(height: 12),
       if (signed)
         SevaCard(
           child: Row(children: [
@@ -302,8 +369,7 @@ class _Submitted extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Text(
-            context.tr('Watch for a notification: this demo moves your application forward on its own.',
-                'ಅಧಿಸೂಚನೆಗಾಗಿ ನೋಡಿ: ಈ ಡೆಮೊ ನಿಮ್ಮ ಅರ್ಜಿಯನ್ನು ತಾನಾಗಿ ಮುಂದುವರಿಸುತ್ತದೆ.'),
+            context.tr('We will notify you at every step.', 'ಪ್ರತಿ ಹಂತದಲ್ಲೂ ನಿಮಗೆ ತಿಳಿಸುತ್ತೇವೆ.'),
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 13, color: context.cs.onSurfaceVariant),
           ),

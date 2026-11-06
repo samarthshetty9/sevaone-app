@@ -40,7 +40,7 @@ Widget? pageFor(String route) {
     'accessibility' => const AccessibilityScreen(),
     'digilocker' => const DigilockerLinkScreen(),
     'verify' => const VerifyHomeScreen(),
-    'features' => const FeatureMapScreen(),
+    'profile' => const ProfileScreen(),
     'search' => const SearchScreen(),
     'life' => const LifeEventsScreen(),
     'calculators' => const CalculatorsScreen(),
@@ -64,7 +64,7 @@ Widget? pageFor(String route) {
 void openRoute(String route) {
   final nav = navigatorKey.currentState;
   if (nav == null) return;
-  const tabs = {'home': 0, 'services': 1, 'schemes': 1, 'track': 2, 'documents': 3, 'profile': 4};
+  const tabs = {'home': 0, 'services': 1, 'schemes': 1, 'documents': 2, 'track': 3};
   if (tabs.containsKey(route)) {
     nav.popUntil((r) => r.isFirst);
     shellTab.value = tabs[route]!;

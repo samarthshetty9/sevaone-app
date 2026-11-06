@@ -13,6 +13,20 @@ class Seva {
   static const red = Color(0xFFD73240);
   static const aqua = Color(0xFFCAF5F2);
 
+  static const tones = [
+    Color(0xFF5553D2), // indigo
+    Color(0xFF0E9F8E), // teal
+    Color(0xFFE8743B), // saffron
+    Color(0xFFD6405F), // rose
+    Color(0xFF8A4FD3), // violet
+    Color(0xFF1E88D2), // sky
+    Color(0xFFD99A1C), // amber
+    Color(0xFF2E9E5B), // green
+  ];
+
+  /// Stable per-icon colour, so lists stay lively without hand-picking.
+  static Color toneFor(IconData i) => tones[i.codePoint % tones.length];
+
   static const headerGradient = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
@@ -37,7 +51,7 @@ ThemeData buildTheme({required bool dark, required bool highContrast}) {
     error: dark ? const Color(0xFFFF8A92) : Seva.red,
     surface: highContrast
         ? (dark ? Colors.black : Colors.white)
-        : (dark ? const Color(0xFF12132A) : const Color(0xFFFDFDFF)),
+        : (dark ? const Color(0xFF12132A) : const Color(0xFFF4F5FB)),
     onSurface: highContrast
         ? (dark ? Colors.white : Colors.black)
         : (dark ? const Color(0xFFEDEDF7) : const Color(0xFF131524)),
@@ -45,7 +59,7 @@ ThemeData buildTheme({required bool dark, required bool highContrast}) {
         ? (dark ? Colors.white : Colors.black)
         : (dark ? const Color(0xFFB2B4C8) : const Color(0xFF5F6275)),
     surfaceContainerHighest:
-        dark ? const Color(0xFF23254A) : const Color(0xFFF2F3FC),
+        dark ? const Color(0xFF23254A) : Colors.white,
     surfaceContainerHigh:
         dark ? const Color(0xFF1D1F3E) : const Color(0xFFF7F7FD),
     surfaceContainerLow: dark ? const Color(0xFF191A36) : Colors.white,

@@ -30,10 +30,23 @@ class AppState extends ChangeNotifier {
   bool aiMode = false;
   final Set<String> doneSteps = {};
   final List<Txn> transactions = [
+    Txn(const L('BESCOM electricity bill', 'ಬೆಸ್ಕಾಂ ವಿದ್ಯುತ್ ಬಿಲ್'), 1096, 'RCP204418203',
+        DateTime.now().subtract(const Duration(days: 8))),
+    Txn(const L('BWSSB water bill', 'ಬಿಡಬ್ಲ್ಯುಎಸ್‌ಎಸ್‌ಬಿ ನೀರಿನ ಬಿಲ್'), 438, 'RCP204417761',
+        DateTime.now().subtract(const Duration(days: 12))),
     Txn(const L('Residence Certificate fee', 'ವಾಸಸ್ಥಳ ಪ್ರಮಾಣಪತ್ರ ಶುಲ್ಕ'), 40, 'RCP204418817',
         DateTime.now().subtract(const Duration(days: 19))),
+    Txn(const L('BESCOM electricity bill', 'ಬೆಸ್ಕಾಂ ವಿದ್ಯುತ್ ಬಿಲ್'), 982, 'RCP203911647',
+        DateTime.now().subtract(const Duration(days: 38))),
+    Txn(const L('BWSSB water bill', 'ಬಿಡಬ್ಲ್ಯುಎಸ್‌ಎಸ್‌ಬಿ ನೀರಿನ ಬಿಲ್'), 411, 'RCP203908125',
+        DateTime.now().subtract(const Duration(days: 42))),
+    Txn(const L('Land record (RTC) fee', 'ಭೂ ದಾಖಲೆ (ಪಹಣಿ) ಶುಲ್ಕ'), 15, 'RCP203522980',
+        DateTime.now().subtract(const Duration(days: 61))),
   ];
-  final List<FamilyMember> family = [];
+  final List<FamilyMember> family = [
+    FamilyMember('Mahesh Gowda', 'Spouse'),
+    FamilyMember('Tara Gowda', 'Child'),
+  ];
 
   // Data
   final CitizenProfile profile = CitizenProfile();
@@ -104,6 +117,31 @@ class AppState extends ChangeNotifier {
           const L('₹1,284 is due. Pay in two taps.', '₹1,284 ಬಾಕಿ ಇದೆ. ಎರಡು ಟ್ಯಾಪ್‌ಗಳಲ್ಲಿ ಪಾವತಿಸಿ.'),
           now.subtract(const Duration(hours: 9)),
           'bill'),
+      AppNotification(
+          'n3',
+          const L('Rain likely this evening', 'ಇಂದು ಸಂಜೆ ಮಳೆ ಸಾಧ್ಯತೆ'),
+          const L('Carry an umbrella if you are heading out in Bengaluru Urban.',
+              'ಬೆಂಗಳೂರು ನಗರದಲ್ಲಿ ಹೊರಗೆ ಹೋಗುವಾಗ ಛತ್ರಿ ತೆಗೆದುಕೊಳ್ಳಿ.'),
+          now.subtract(const Duration(days: 1, hours: 2)),
+          'weather',
+          route: 'weather',
+          read: true),
+      AppNotification(
+          'n4',
+          const L('Residence Certificate is ready', 'ವಾಸಸ್ಥಳ ಪ್ರಮಾಣಪತ್ರ ಸಿದ್ಧವಾಗಿದೆ'),
+          const L('Download it from your applications.', 'ನಿಮ್ಮ ಅರ್ಜಿಗಳಿಂದ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ.'),
+          now.subtract(const Duration(days: 3)),
+          'application',
+          route: 'track',
+          read: true),
+      AppNotification(
+          'n5',
+          const L('New scheme: Yuva Nidhi', 'ಹೊಸ ಯೋಜನೆ: ಯುವ ನಿಧಿ'),
+          const L('Monthly support for unemployed graduates.', 'ನಿರುದ್ಯೋಗಿ ಪದವೀಧರರಿಗೆ ಮಾಸಿಕ ನೆರವು.'),
+          now.subtract(const Duration(days: 5)),
+          'scheme',
+          route: 'schemes',
+          read: true),
     ]);
   }
 
@@ -304,7 +342,7 @@ class AppState extends ChangeNotifier {
       (biometric ? 1 : 0) +
       (family.isNotEmpty ? 1 : 0);
 
-  /// Back to first-launch state, so a demo can be re-run cleanly.
+  /// Back to first-launch state.
   void resetDemo() {
     onboarded = false;
     loggedIn = false;
@@ -316,7 +354,6 @@ class AppState extends ChangeNotifier {
     feedback.clear();
     bookmarks.clear();
     doneSteps.clear();
-    family.clear();
     aiMode = false;
     biometric = false;
     notifications.clear();

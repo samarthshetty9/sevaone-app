@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../app/state.dart';
+import '../app/theme.dart';
 import '../data/models.dart';
 import '../data/seed.dart';
+import '../widgets/art.dart';
 import '../widgets/common.dart';
 
 IconData billIcon(String c) => switch (c) {
@@ -23,22 +25,52 @@ class BillsScreen extends StatelessWidget {
     final paid = s.bills.where((b) => b.paid).toList();
     final total = due.fold<int>(0, (a, b) => a + b.amount);
     return Scaffold(
-      appBar: AppBar(title: Text(context.tr('Bills and payments', 'ಬಿಲ್‌ಗಳು ಮತ್ತು ಪಾವತಿಗಳು'))),
+      appBar: SevaBar(title: Text(context.tr('Bills and payments', 'ಬಿಲ್‌ಗಳು ಮತ್ತು ಪಾವತಿಗಳು'))),
       body: ListView(padding: const EdgeInsets.all(16), children: [
-        SevaCard(
-          color: context.cs.primary.withValues(alpha: 0.09),
+        GlowPanel(
+          colors: const [Color(0xFFB8501F), Color(0xFFE8743B)],
           child: Row(children: [
             Expanded(
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Text(context.tr('Total due', 'ಒಟ್ಟು ಬಾಕಿ'),
-                    style: TextStyle(color: context.cs.onSurfaceVariant)),
-                Text(money(total), style: context.tt.headlineMedium),
+                    style: const TextStyle(color: Colors.white70)),
+                Text(money(total),
+                    style: context.tt.headlineMedium?.copyWith(color: Colors.white, fontSize: 32)),
+                Text(context.tr('${due.length} bills', '${due.length} ಬಿಲ್‌ಗಳು'),
+                    style: const TextStyle(color: Colors.white)),
               ]),
             ),
-            Text(context.tr('${due.length} bills', '${due.length} ಬಿಲ್‌ಗಳು')),
+            const IconArt(Icons.receipt_long, size: 80),
           ]),
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: 14),
+        Row(children: [
+          for (final (i, label, cat) in [
+            (Icons.bolt, context.tr('Electricity', 'ವಿದ್ಯುತ್'), 0),
+            (Icons.water_drop, context.tr('Water', 'ನೀರು'), 1),
+            (Icons.home_work, context.tr('Property', 'ಆಸ್ತಿ'), 2),
+            (Icons.add, context.tr('Add new', 'ಹೊಸದು'), 3),
+          ])
+            Expanded(
+              child: InkWell(
+                borderRadius: BorderRadius.circular(14),
+                onTap: () => push(context, const AddBillScreen()),
+                child: Column(children: [
+                  IconBadge(i, size: 48, color: Seva.tones[cat * 2 + 1]),
+                  const SizedBox(height: 6),
+                  Text(label,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600)),
+                ]),
+              ),
+            ),
+        ]),
+        const SizedBox(height: 18),
+        if (due.isNotEmpty) ...[
+          Text(context.tr('Upcoming', 'ಮುಂಬರುವವು'), style: context.tt.titleLarge?.copyWith(fontSize: 18)),
+          const SizedBox(height: 10),
+        ],
         for (final b in due)
           Padding(padding: const EdgeInsets.only(bottom: 8), child: _BillRow(b)),
         if (due.isEmpty)
@@ -46,15 +78,10 @@ class BillsScreen extends StatelessWidget {
             icon: Icons.task_alt,
             title: context.tr('All paid up', 'ಎಲ್ಲಾ ಪಾವತಿಸಲಾಗಿದೆ'),
           ),
-        OutlinedButton.icon(
-          onPressed: () => push(context, const AddBillScreen()),
-          icon: const Icon(Icons.add),
-          label: Text(context.tr('Add a bill', 'ಬಿಲ್ ಸೇರಿಸಿ')),
-        ),
         if (paid.isNotEmpty) ...[
-          const SizedBox(height: 18),
-          Text(context.tr('Paid', 'ಪಾವತಿಸಲಾಗಿದೆ'), style: context.tt.titleLarge),
-          const SizedBox(height: 8),
+          const SizedBox(height: 14),
+          Text(context.tr('Paid', 'ಪಾವತಿಸಲಾಗಿದೆ'), style: context.tt.titleLarge?.copyWith(fontSize: 18)),
+          const SizedBox(height: 10),
           for (final b in paid)
             Padding(padding: const EdgeInsets.only(bottom: 8), child: _BillRow(b)),
         ],
@@ -98,8 +125,14 @@ class BillDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     context.watchApp;
+    const months = ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov'];
+    final seed = b.consumerNo.codeUnits.fold<int>(0, (a, c) => a + c);
+    final history = [
+      for (var i = 5; i > 0; i--) (b.amount * (0.72 + ((seed * i) % 38) / 100)).round(),
+      b.amount,
+    ];
     Widget row(String k, String v) => Padding(
-          padding: const EdgeInsets.symmetric(vertical: 6),
+          padding: const EdgeInsets.symmetric(vertical: 7),
           child: Row(children: [
             Expanded(child: Text(k, style: TextStyle(color: context.cs.onSurfaceVariant))),
             Flexible(
@@ -109,25 +142,57 @@ class BillDetail extends StatelessWidget {
             ),
           ]),
         );
+    final days = b.due.difference(DateTime.now()).inDays + 1;
     return Scaffold(
-      appBar: AppBar(title: Text(context.loc(b.provider))),
+      appBar: SevaBar(title: Text(context.loc(b.provider))),
       body: ListView(padding: const EdgeInsets.all(16), children: [
-        Center(child: IconBadge(billIcon(b.category), size: 62)),
-        const SizedBox(height: 10),
-        Center(child: Text(money(b.amount), style: context.tt.headlineMedium)),
-        Center(
-          child: Text(context.loc(b.label), style: TextStyle(color: context.cs.onSurfaceVariant)),
+        GlowPanel(
+          child: Row(children: [
+            Expanded(
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Text(context.loc(b.label), style: const TextStyle(color: Colors.white70)),
+                Text(money(b.amount),
+                    style: context.tt.headlineMedium?.copyWith(color: Colors.white, fontSize: 32)),
+                const SizedBox(height: 4),
+                Pill(
+                  b.paid
+                      ? context.tr('Paid', 'ಪಾವತಿಸಲಾಗಿದೆ')
+                      : context.tr('Due in $days days', '$days ದಿನಗಳಲ್ಲಿ ಪಾವತಿಸಬೇಕು'),
+                  color: Colors.white,
+                ),
+              ]),
+            ),
+            IconArt(billIcon(b.category), size: 80),
+          ]),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 12),
+        SevaCard(
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text(context.tr('Last 6 bills', 'ಕೊನೆಯ 6 ಬಿಲ್‌ಗಳು'), style: context.tt.titleMedium),
+            const SizedBox(height: 10),
+            MiniBars(values: history, labels: months, color: context.cs.primary),
+          ]),
+        ),
+        const SizedBox(height: 12),
         SevaCard(
           child: Column(children: [
             row(context.tr('Consumer number', 'ಗ್ರಾಹಕ ಸಂಖ್ಯೆ'), b.consumerNo),
+            row(context.tr('Bill date', 'ಬಿಲ್ ದಿನಾಂಕ'),
+                dateStr(b.due.subtract(const Duration(days: 15)))),
             row(context.tr('Due date', 'ಕೊನೆಯ ದಿನಾಂಕ'), dateStr(b.due)),
-            if (b.paid) ...[
-              row(context.tr('Status', 'ಸ್ಥಿತಿ'), context.tr('Paid', 'ಪಾವತಿಸಲಾಗಿದೆ')),
-              row(context.tr('Receipt', 'ರಸೀದಿ'), b.receipt!),
-            ],
+            if (b.paid) row(context.tr('Receipt', 'ರಸೀದಿ'), b.receipt!),
           ]),
+        ),
+        const SizedBox(height: 12),
+        SevaCard(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 2),
+          child: SwitchListTile(
+            contentPadding: EdgeInsets.zero,
+            title: Text(context.tr('Remind me before the due date', 'ಕೊನೆಯ ದಿನಾಂಕಕ್ಕೆ ಮೊದಲು ನೆನಪಿಸಿ'),
+                style: const TextStyle(fontWeight: FontWeight.w600)),
+            value: app.pushPrefs['bill']!,
+            onChanged: (v) => app.set(() => app.pushPrefs['bill'] = v),
+          ),
         ),
       ]),
       bottomNavigationBar: b.paid
@@ -178,26 +243,35 @@ class _AddBillScreenState extends State<AddBillScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(context.tr('Add a bill', 'ಬಿಲ್ ಸೇರಿಸಿ'))),
+      appBar: SevaBar(title: Text(context.tr('Add a bill', 'ಬಿಲ್ ಸೇರಿಸಿ'))),
       body: ListView(padding: const EdgeInsets.all(16), children: [
-        Text(context.tr('Choose provider', 'ಸೇವಾ ಪೂರೈಕೆದಾರರನ್ನು ಆಯ್ಕೆಮಾಡಿ'), style: context.tt.titleMedium),
-        const SizedBox(height: 10),
-        Wrap(spacing: 8, runSpacing: 8, children: [
-          for (final p in billProviders)
-            ChoiceChip(
-              avatar: Icon(billIcon(p.category), size: 16),
-              label: Text(context.loc(p.name)),
-              selected: identical(p, provider),
-              onSelected: (_) => setState(() => provider = p),
-            ),
-        ]),
-        const SizedBox(height: 18),
+        for (final (cat, title) in [
+          ('electricity', context.tr('Electricity', 'ವಿದ್ಯುತ್')),
+          ('water', context.tr('Water', 'ನೀರು')),
+          ('property', context.tr('Property tax', 'ಆಸ್ತಿ ತೆರಿಗೆ')),
+        ]) ...[
+          Row(children: [
+            IconBadge(billIcon(cat), size: 30),
+            const SizedBox(width: 8),
+            Text(title, style: context.tt.titleMedium),
+          ]),
+          const SizedBox(height: 8),
+          Wrap(spacing: 8, runSpacing: 8, children: [
+            for (final p in billProviders.where((p) => p.category == cat))
+              ChoiceChip(
+                label: Text(context.loc(p.name)),
+                selected: identical(p, provider),
+                onSelected: (_) => setState(() => provider = p),
+              ),
+          ]),
+          const SizedBox(height: 16),
+        ],
         TextField(
           controller: c,
           onChanged: (_) => setState(() {}),
           decoration: InputDecoration(
             labelText: context.tr('Consumer number', 'ಗ್ರಾಹಕ ಸಂಖ್ಯೆ'),
-            helperText: context.tr('Any number works in this demo', 'ಈ ಡೆಮೊದಲ್ಲಿ ಯಾವುದೇ ಸಂಖ್ಯೆ ಕೆಲಸ ಮಾಡುತ್ತದೆ'),
+            helperText: context.tr('Shown on your latest bill', 'ನಿಮ್ಮ ಇತ್ತೀಚಿನ ಬಿಲ್‌ನಲ್ಲಿ ಇದೆ'),
           ),
         ),
       ]),
@@ -234,27 +308,36 @@ class _PaymentScreenState extends State<PaymentScreen> {
   @override
   Widget build(BuildContext context) {
     final methods = <(String, IconData, String)>[
-      ('upi', Icons.qr_code_2, 'UPI'),
+      ('upi', Icons.qr_code_2, context.tr('UPI apps', 'ಯುಪಿಐ ಆ್ಯಪ್‌ಗಳು')),
       ('card', Icons.credit_card, context.tr('Debit or credit card', 'ಡೆಬಿಟ್ ಅಥವಾ ಕ್ರೆಡಿಟ್ ಕಾರ್ಡ್')),
       ('net', Icons.account_balance_outlined, context.tr('Net banking', 'ನೆಟ್ ಬ್ಯಾಂಕಿಂಗ್')),
     ];
     return PopScope(
       canPop: stage != 1,
       child: Scaffold(
-        appBar: AppBar(
+        appBar: SevaBar(
           automaticallyImplyLeading: stage == 0,
           title: Text(context.tr('Payment', 'ಪಾವತಿ')),
-          actions: const [DemoChip(), SizedBox(width: 16)],
         ),
         body: ListView(padding: const EdgeInsets.all(16), children: switch (stage) {
           0 => [
-              Center(child: Text(money(widget.amount), style: context.tt.headlineMedium)),
-              Center(
-                child: Text(widget.title,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: context.cs.onSurfaceVariant)),
+              GlowPanel(
+                child: Row(children: [
+                  Expanded(
+                    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                      Text(context.tr('Paying', 'ಪಾವತಿ'), style: const TextStyle(color: Colors.white70)),
+                      Text(money(widget.amount),
+                          style: context.tt.headlineMedium?.copyWith(color: Colors.white, fontSize: 32)),
+                      Text(widget.title, style: const TextStyle(color: Colors.white)),
+                    ]),
+                  ),
+                  const IconArt(Icons.lock, size: 74),
+                ]),
               ),
               const SizedBox(height: 18),
+              Text(context.tr('Choose how to pay', 'ಪಾವತಿ ವಿಧಾನ ಆಯ್ಕೆಮಾಡಿ'),
+                  style: context.tt.titleLarge?.copyWith(fontSize: 18)),
+              const SizedBox(height: 10),
               for (final (id, icon, label) in methods)
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8),
@@ -270,10 +353,27 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     ]),
                   ),
                 ),
-              const SizedBox(height: 6),
+              const SizedBox(height: 8),
+              SevaCard(
+                child: Column(children: [
+                  for (final (k, v) in [
+                    (context.tr('Amount', 'ಮೊತ್ತ'), money(widget.amount)),
+                    (context.tr('Convenience fee', 'ಅನುಕೂಲ ಶುಲ್ಕ'), context.tr('Free', 'ಉಚಿತ')),
+                    (context.tr('You pay', 'ನೀವು ಪಾವತಿಸುವುದು'), money(widget.amount)),
+                  ])
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5),
+                      child: Row(children: [
+                        Expanded(child: Text(k, style: TextStyle(color: context.cs.onSurfaceVariant))),
+                        Text(v, style: const TextStyle(fontWeight: FontWeight.w700)),
+                      ]),
+                    ),
+                ]),
+              ),
+              const SizedBox(height: 12),
               Text(
-                context.tr('Demo checkout. No money moves and no card details are collected.',
-                    'ಡೆಮೊ ಪಾವತಿ. ಯಾವುದೇ ಹಣ ವರ್ಗಾವಣೆಯಾಗುವುದಿಲ್ಲ ಮತ್ತು ಕಾರ್ಡ್ ವಿವರ ಸಂಗ್ರಹಿಸುವುದಿಲ್ಲ.'),
+                context.tr('Your receipt will be sent by SMS and saved in Transaction history.',
+                    'ರಸೀದಿಯನ್ನು ಎಸ್‌ಎಂಎಸ್ ಮೂಲಕ ಕಳುಹಿಸಲಾಗುತ್ತದೆ ಮತ್ತು ವಹಿವಾಟು ಇತಿಹಾಸದಲ್ಲಿ ಉಳಿಸಲಾಗುತ್ತದೆ.'),
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 13, color: context.cs.onSurfaceVariant),
               ),

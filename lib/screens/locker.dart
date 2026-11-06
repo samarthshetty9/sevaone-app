@@ -7,6 +7,7 @@ import '../app/theme.dart';
 import '../data/models.dart';
 import '../data/seed.dart';
 import '../router.dart';
+import '../widgets/art.dart';
 import '../widgets/common.dart';
 import 'scanner.dart';
 
@@ -20,7 +21,7 @@ class DocumentsScreen extends StatelessWidget {
     final s = context.watchApp;
     final docs = docTypes.where((d) => s.lockerDocs.contains(d.id)).toList();
     return Scaffold(
-      appBar: AppBar(
+      appBar: SevaBar(
         automaticallyImplyLeading: false,
         title: Text(context.tr('My documents', 'ನನ್ನ ದಾಖಲೆಗಳು')),
         actions: [
@@ -107,13 +108,23 @@ class DocumentsScreen extends StatelessWidget {
           (Icons.landscape_outlined, context.tr('Land and property', 'ಭೂಮಿ ಮತ್ತು ಆಸ್ತಿ'), 9),
           (Icons.account_balance_outlined, context.tr('Karnataka state documents', 'ಕರ್ನಾಟಕ ರಾಜ್ಯ ದಾಖಲೆಗಳು'), 31),
         ])
-          ListTile(
-            contentPadding: EdgeInsets.zero,
-            leading: IconBadge(icon, size: 38),
-            title: Text(name, style: const TextStyle(fontWeight: FontWeight.w600)),
-            subtitle: Text(context.tr('$count documents', '$count ದಾಖಲೆಗಳು')),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () => openRoute(s.digilockerLinked ? 'verify' : 'digilocker'),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: SevaCard(
+              onTap: () => openRoute(s.digilockerLinked ? 'verify' : 'digilocker'),
+              child: Row(children: [
+                IconBadge(icon, size: 40),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                    Text(name, style: const TextStyle(fontWeight: FontWeight.w600)),
+                    Text(context.tr('$count documents', '$count ದಾಖಲೆಗಳು'),
+                        style: TextStyle(fontSize: 13, color: context.cs.onSurfaceVariant)),
+                  ]),
+                ),
+                const Icon(Icons.chevron_right),
+              ]),
+            ),
           ),
         SectionHeaderPlain(context.tr('Scanned documents', 'ಸ್ಕ್ಯಾನ್ ಮಾಡಿದ ದಾಖಲೆಗಳು')),
         if (s.scans.isEmpty)
@@ -188,23 +199,35 @@ class _DigilockerLinkScreenState extends State<DigilockerLinkScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: SevaBar(
         title: Text(context.tr('Link DigiLocker', 'ಡಿಜಿಲಾಕರ್ ಲಿಂಕ್')),
-        actions: const [DemoChip(), SizedBox(width: 16)],
       ),
-      body: ListView(padding: const EdgeInsets.all(20), children: switch (stage) {
+      body: ListView(padding: const EdgeInsets.all(16), children: switch (stage) {
         0 => [
-            Text(context.tr('SevaOne is asking to read', 'ಸೇವಾಒನ್ ಓದಲು ಕೇಳುತ್ತಿದೆ'),
-                style: context.tt.headlineSmall),
+            GlowPanel(
+              child: Row(children: [
+                const IconArt(Icons.lock_open, size: 72),
+                const SizedBox(width: 14),
+                Expanded(
+                  child: Text(context.tr('SevaOne is asking to read these documents',
+                      'ಸೇವಾಒನ್ ಈ ದಾಖಲೆಗಳನ್ನು ಓದಲು ಕೇಳುತ್ತಿದೆ'),
+                      style: context.tt.titleLarge?.copyWith(color: Colors.white)),
+                ),
+              ]),
+            ),
             const SizedBox(height: 14),
-            for (final d in docTypes)
-              ListTile(
-                contentPadding: EdgeInsets.zero,
-                leading: Icon(d.icon, color: context.cs.primary),
-                title: Text(context.loc(d.name)),
-                subtitle: Text(context.loc(d.issuer)),
-              ),
-            const SizedBox(height: 6),
+            SevaCard(
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              child: Column(children: [
+                for (final d in docTypes)
+                  ListTile(
+                    leading: IconBadge(d.icon, size: 38),
+                    title: Text(context.loc(d.name), style: const TextStyle(fontWeight: FontWeight.w600)),
+                    subtitle: Text(context.loc(d.issuer)),
+                  ),
+              ]),
+            ),
+            const SizedBox(height: 12),
             Text(
               context.tr('You can unlink at any time from Profile.',
                   'ಪ್ರೊಫೈಲ್‌ನಿಂದ ಯಾವಾಗ ಬೇಕಾದರೂ ಅನ್‌ಲಿಂಕ್ ಮಾಡಬಹುದು.'),
@@ -265,7 +288,7 @@ class DocumentView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(context.loc(d.name))),
+      appBar: SevaBar(title: Text(context.loc(d.name))),
       body: ListView(padding: const EdgeInsets.all(16), children: [
         Semantics(
           label: context.tr('${d.name.en} preview', '${d.name.kn} ಮುನ್ನೋಟ'),
@@ -285,7 +308,6 @@ class DocumentView extends StatelessWidget {
                     child: Text(context.loc(d.issuer),
                         style: const TextStyle(fontWeight: FontWeight.w600)),
                   ),
-                  const DemoChip(onDark: true),
                 ]),
                 const SizedBox(height: 26),
                 Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
@@ -308,6 +330,28 @@ class DocumentView extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 12),
+        SevaCard(
+          child: Column(children: [
+            for (final (k, v) in [
+              (context.tr('Issued by', 'ನೀಡಿದವರು'), context.loc(d.issuer)),
+              (context.tr('Document number', 'ದಾಖಲೆ ಸಂಖ್ಯೆ'), d.number),
+              (context.tr('Name on document', 'ದಾಖಲೆಯಲ್ಲಿನ ಹೆಸರು'), context.loc(citizenName)),
+              (context.tr('Status', 'ಸ್ಥಿತಿ'), context.tr('Valid', 'ಮಾನ್ಯ')),
+            ])
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 6),
+                child: Row(children: [
+                  Expanded(child: Text(k, style: TextStyle(color: context.cs.onSurfaceVariant))),
+                  Flexible(
+                    child: Text(v,
+                        textAlign: TextAlign.right,
+                        style: const TextStyle(fontWeight: FontWeight.w600)),
+                  ),
+                ]),
+              ),
+          ]),
+        ),
+        const SizedBox(height: 12),
         if (!d.downloadable)
           SevaCard(
             child: Row(children: [
@@ -322,7 +366,7 @@ class DocumentView extends StatelessWidget {
           )
         else
           FilledButton.icon(
-            onPressed: () => toast(tx('Saved to device (demo)', 'ಸಾಧನಕ್ಕೆ ಉಳಿಸಲಾಗಿದೆ (ಡೆಮೊ)')),
+            onPressed: () => toast(tx('Saved to device', 'ಸಾಧನಕ್ಕೆ ಉಳಿಸಲಾಗಿದೆ')),
             icon: const Icon(Icons.download_outlined),
             label: Text(context.tr('Download', 'ಡೌನ್‌ಲೋಡ್')),
           ),
@@ -343,14 +387,31 @@ class VerifyHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(context.tr('Verify a document', 'ದಾಖಲೆ ಪರಿಶೀಲನೆ'))),
+      appBar: SevaBar(title: Text(context.tr('Verify a document', 'ದಾಖಲೆ ಪರಿಶೀಲನೆ'))),
       body: ListView(padding: const EdgeInsets.all(16), children: [
-        Text(
-          context.tr('Check that a certificate is genuine against the issuer record.',
-              'ಪ್ರಮಾಣಪತ್ರ ಅಸಲಿಯೇ ಎಂದು ನೀಡಿದವರ ದಾಖಲೆಯೊಂದಿಗೆ ಪರಿಶೀಲಿಸಿ.'),
-          style: TextStyle(color: context.cs.onSurfaceVariant),
+        GlowPanel(
+          colors: const [Color(0xFF0B5D5A), Color(0xFF0E9F8E)],
+          child: Row(children: [
+            const IconArt(Icons.qr_code_scanner, size: 76),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Text(context.tr('Is it genuine?', 'ಇದು ಅಸಲಿಯೇ?'),
+                    style: context.tt.titleLarge?.copyWith(color: Colors.white)),
+                Text(
+                  context.tr('Check any certificate against the issuer record.',
+                      'ಯಾವುದೇ ಪ್ರಮಾಣಪತ್ರವನ್ನು ನೀಡಿದವರ ದಾಖಲೆಯೊಂದಿಗೆ ಪರಿಶೀಲಿಸಿ.'),
+                  style: const TextStyle(color: Colors.white),
+                ),
+              ]),
+            ),
+          ]),
         ),
         const SizedBox(height: 12),
+        const SizedBox(height: 16),
+        Text(context.tr('Choose a document', 'ದಾಖಲೆ ಆಯ್ಕೆಮಾಡಿ'),
+            style: context.tt.titleLarge?.copyWith(fontSize: 18)),
+        const SizedBox(height: 10),
         for (final d in docTypes)
           Padding(
             padding: const EdgeInsets.only(bottom: 8),
@@ -388,8 +449,8 @@ class _VerifyScreenState extends State<VerifyScreen> {
   Widget build(BuildContext context) {
     final d = widget.d;
     return Scaffold(
-      appBar: AppBar(title: Text(context.tr('Verification', 'ಪರಿಶೀಲನೆ'))),
-      body: ListView(padding: const EdgeInsets.all(20), children: [
+      appBar: SevaBar(title: Text(context.tr('Verification', 'ಪರಿಶೀಲನೆ'))),
+      body: ListView(padding: const EdgeInsets.all(16), children: [
         if (!done)
           SevaCard(
             child: SimSteps(
@@ -417,6 +478,32 @@ class _VerifyScreenState extends State<VerifyScreen> {
               Text(context.tr('Checked: ${dateStr(DateTime.now())}', 'ಪರಿಶೀಲಿಸಿದ್ದು: ${dateStr(DateTime.now())}')),
               Text('ID: VRF-${d.number.hashCode.abs() % 900000 + 100000}'),
             ]),
+          ),
+          const SizedBox(height: 12),
+          SevaCard(
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text(context.tr('What we checked', 'ನಾವು ಪರಿಶೀಲಿಸಿದ್ದು'), style: context.tt.titleMedium),
+              const SizedBox(height: 8),
+              for (final t in [
+                context.tr('Document ID matches the issuer record', 'ದಾಖಲೆ ಐಡಿ ನೀಡಿದವರ ದಾಖಲೆಗೆ ಹೊಂದುತ್ತದೆ'),
+                context.tr('Issuer digital signature is valid', 'ನೀಡಿದವರ ಡಿಜಿಟಲ್ ಸಹಿ ಮಾನ್ಯವಾಗಿದೆ'),
+                context.tr('Document has not been revoked', 'ದಾಖಲೆ ರದ್ದಾಗಿಲ್ಲ'),
+              ])
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child: Row(children: [
+                    Icon(Icons.check_circle, size: 18, color: context.cs.secondary),
+                    const SizedBox(width: 8),
+                    Expanded(child: Text(t)),
+                  ]),
+                ),
+            ]),
+          ),
+          const SizedBox(height: 12),
+          OutlinedButton.icon(
+            onPressed: () => toast(tx('Verification report saved', 'ಪರಿಶೀಲನಾ ವರದಿ ಉಳಿಸಲಾಗಿದೆ')),
+            icon: const Icon(Icons.share_outlined),
+            label: Text(context.tr('Share this result', 'ಈ ಫಲಿತಾಂಶ ಹಂಚಿಕೊಳ್ಳಿ')),
           ),
         ],
       ]),

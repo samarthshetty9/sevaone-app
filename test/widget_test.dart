@@ -14,9 +14,9 @@ import 'package:sevaone_app/screens/track.dart';
 
 const routes = [
   'bills', 'centres', 'eligibility', 'grievance', 'feedback', 'help', 'chat', 'voice', 'sms',
-  'scanner', 'weather', 'notifications', 'accessibility', 'digilocker', 'verify', 'features',
+  'scanner', 'weather', 'notifications', 'accessibility', 'digilocker', 'verify',
   'search', 'life', 'calculators', 'digipin', 'emergency', 'helplines', 'jobs', 'transactions',
-  'family', 'myqr', 'isl', 'signal', 'directory', 'whatsapp', 'totp',
+  'family', 'myqr', 'isl', 'signal', 'directory', 'whatsapp', 'totp', 'profile',
 ];
 
 Widget host(Widget page, double scale) => AppScope(
@@ -55,7 +55,7 @@ void main() {
         testWidgets('tabs, DigiLocker linked: $linked', (t) async {
           linked ? app.linkDigilocker() : app.unlinkDigilocker();
           await open(t, const Shell(), scale);
-          for (var i = 1; i < 5; i++) {
+          for (var i = 1; i < 4; i++) {
             shellTab.value = i;
             await open(t, const Shell(), scale);
           }

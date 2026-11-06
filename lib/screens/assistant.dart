@@ -8,6 +8,7 @@ import '../app/theme.dart';
 import '../data/models.dart';
 import '../data/seed.dart';
 import '../router.dart';
+import '../widgets/art.dart';
 import '../widgets/common.dart';
 
 class Reply {
@@ -207,7 +208,7 @@ class _VoiceSheetState extends State<_VoiceSheet> {
           const SizedBox(height: 18),
           SizedBox(height: 46, child: Waveform(active: true, color: context.cs.primary)),
           const SizedBox(height: 18),
-          Text(context.tr('Demo: tap what you would say', 'ಡೆಮೊ: ನೀವು ಹೇಳುವುದನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ'),
+          Text(context.tr('Try saying', 'ಹೀಗೆ ಹೇಳಿ ನೋಡಿ'),
               style: TextStyle(color: context.cs.onSurfaceVariant)),
           const SizedBox(height: 8),
           Wrap(spacing: 8, runSpacing: 8, alignment: WrapAlignment.center, children: [
@@ -282,26 +283,29 @@ class _VoiceBotScreenState extends State<VoiceBotScreen> {
     };
     return Scaffold(
       backgroundColor: Seva.navy,
-      appBar: AppBar(
-        backgroundColor: Seva.navy,
-        foregroundColor: Colors.white,
-        titleTextStyle: context.tt.titleLarge?.copyWith(color: Colors.white, fontSize: 18),
+      appBar: SevaBar(
         title: Text(context.tr('Seva voice bot', 'ಸೇವಾ ಧ್ವನಿ ಬಾಟ್')),
-        actions: const [DemoChip(onDark: true), SizedBox(width: 16)],
       ),
       body: Column(children: [
         Expanded(
           child: ListView(controller: scroll, padding: const EdgeInsets.all(16), children: [
-            if (msgs.isEmpty)
-              Padding(
-                padding: const EdgeInsets.only(top: 40),
-                child: Text(
-                  context.tr('Speak in Kannada or English. Ask about bills, schemes or your applications.',
-                      'ಕನ್ನಡ ಅಥವಾ ಇಂಗ್ಲಿಷ್‌ನಲ್ಲಿ ಮಾತನಾಡಿ. ಬಿಲ್‌ಗಳು, ಯೋಜನೆಗಳು ಅಥವಾ ಅರ್ಜಿಗಳ ಬಗ್ಗೆ ಕೇಳಿ.'),
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(color: Colors.white, fontSize: 16),
-                ),
+            if (msgs.isEmpty) ...[
+              const SizedBox(height: 26),
+              const Center(child: IconArt(Icons.graphic_eq, size: 130)),
+              const SizedBox(height: 18),
+              Text(
+                context.tr('Speak in Kannada or English', 'ಕನ್ನಡ ಅಥವಾ ಇಂಗ್ಲಿಷ್‌ನಲ್ಲಿ ಮಾತನಾಡಿ'),
+                textAlign: TextAlign.center,
+                style: context.tt.headlineSmall?.copyWith(color: Colors.white),
               ),
+              const SizedBox(height: 6),
+              Text(
+                context.tr('Ask about bills, schemes or your applications.',
+                    'ಬಿಲ್‌ಗಳು, ಯೋಜನೆಗಳು ಅಥವಾ ಅರ್ಜಿಗಳ ಬಗ್ಗೆ ಕೇಳಿ.'),
+                textAlign: TextAlign.center,
+                style: const TextStyle(color: Colors.white, fontSize: 15),
+              ),
+            ],
             for (final m in msgs) ChatBubble(m.text, mine: m.mine, reply: m.reply, onDark: true),
           ]),
         ),
@@ -457,7 +461,7 @@ class _LiveChatScreenState extends State<LiveChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: SevaBar(
         title: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text(widget.whatsapp
               ? context.tr('SevaOne on WhatsApp', 'ವಾಟ್ಸಾಪ್‌ನಲ್ಲಿ ಸೇವಾಒನ್')
@@ -469,19 +473,63 @@ class _LiveChatScreenState extends State<LiveChatScreen> {
                     : context.tr('Kavya · Online', 'ಕಾವ್ಯ · ಆನ್‌ಲೈನ್'))
                 : context.tr('Connecting you to an agent…', 'ಸಹಾಯಕರನ್ನು ಸಂಪರ್ಕಿಸಲಾಗುತ್ತಿದೆ…'),
             style: TextStyle(
-                fontFamily: 'NotoSans',
                 fontSize: 12.5,
                 fontWeight: FontWeight.w500,
-                color: context.cs.onSurfaceVariant),
+                color: Colors.white70),
           ),
         ]),
-        actions: const [DemoChip(), SizedBox(width: 16)],
       ),
       body: Column(children: [
         Expanded(
           child: ListView(controller: scroll, padding: const EdgeInsets.all(16), children: [
+            GlowPanel(
+              colors: widget.whatsapp
+                  ? const [Color(0xFF0B5D4A), Color(0xFF1FA463)]
+                  : const [Seva.navy, Seva.blueDark, Seva.blue],
+              child: Row(children: [
+                CircleAvatar(
+                  radius: 26,
+                  backgroundColor: Colors.white,
+                  child: Icon(widget.whatsapp ? Icons.forum : Icons.support_agent,
+                      color: Seva.blueDark, size: 28),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                    Text(
+                        widget.whatsapp
+                            ? context.tr('Get services on WhatsApp', 'ವಾಟ್ಸಾಪ್‌ನಲ್ಲಿ ಸೇವೆಗಳನ್ನು ಪಡೆಯಿರಿ')
+                            : context.tr('SevaOne support', 'ಸೇವಾಒನ್ ಸಹಾಯ ಕೇಂದ್ರ'),
+                        style: context.tt.titleMedium?.copyWith(color: Colors.white)),
+                    Text(context.tr('Usually replies within a minute', 'ಸಾಮಾನ್ಯವಾಗಿ ಒಂದು ನಿಮಿಷದಲ್ಲಿ ಉತ್ತರಿಸುತ್ತಾರೆ'),
+                        style: const TextStyle(color: Colors.white, fontSize: 13)),
+                  ]),
+                ),
+              ]),
+            ),
+            const SizedBox(height: 12),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 12),
+                child: Pill(context.tr('Today', 'ಇಂದು'), color: context.cs.onSurfaceVariant),
+              ),
+            ),
             for (final m in msgs) ChatBubble(m.text, mine: m.mine, reply: m.reply),
           ]),
+        ),
+        SizedBox(
+          height: 46,
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            children: [
+              for (final p in _prompts)
+                Padding(
+                  padding: const EdgeInsets.only(right: 6),
+                  child: ActionChip(label: Text(context.loc(p)), onPressed: () => send(context.loc(p))),
+                ),
+            ],
+          ),
         ),
         SafeArea(
           top: false,

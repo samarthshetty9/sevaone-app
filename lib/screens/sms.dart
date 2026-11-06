@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../app/state.dart';
 import '../data/seed.dart';
+import '../widgets/art.dart';
 import '../widgets/common.dart';
 
 /// Feature 5: SMS access. Shows what a citizen on a basic phone would see; the
@@ -86,25 +87,42 @@ class _SmsScreenState extends State<SmsScreen> {
   Widget build(BuildContext context) {
     final quick = ['STATUS KAR-REV-2026-104512', 'BILL', 'CENTRE', 'SCHEME', 'HELP'];
     return Scaffold(
-      appBar: AppBar(
+      appBar: SevaBar(
         title: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text(context.tr('SMS services', 'ಎಸ್‌ಎಂಎಸ್ ಸೇವೆಗಳು')),
           Text(context.tr('To $shortCode · works on any phone', '$shortCode ಗೆ · ಯಾವುದೇ ಫೋನ್‌ನಲ್ಲಿ ಕೆಲಸ ಮಾಡುತ್ತದೆ'),
               style: TextStyle(
-                  fontFamily: 'NotoSans',
                   fontSize: 12.5,
                   fontWeight: FontWeight.w500,
-                  color: context.cs.onSurfaceVariant)),
+                  color: Colors.white70)),
         ]),
-        actions: const [DemoChip(), SizedBox(width: 16)],
       ),
       body: Column(children: [
         Expanded(
           child: ListView.builder(
             controller: scroll,
             padding: const EdgeInsets.all(16),
-            itemCount: msgs.length,
-            itemBuilder: (_, i) {
+            itemCount: msgs.length + 1,
+            itemBuilder: (_, n) {
+              if (n == 0) {
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 14),
+                  child: GlowPanel(
+                    child: Row(children: [
+                      const IconArt(Icons.sms, size: 68),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Text(
+                          context.tr('No internet? Text a command and get your answer by SMS.',
+                              'ಇಂಟರ್ನೆಟ್ ಇಲ್ಲವೇ? ಆಜ್ಞೆ ಕಳುಹಿಸಿ, ಎಸ್‌ಎಂಎಸ್ ಮೂಲಕ ಉತ್ತರ ಪಡೆಯಿರಿ.'),
+                          style: context.tt.titleMedium?.copyWith(color: Colors.white),
+                        ),
+                      ),
+                    ]),
+                  ),
+                );
+              }
+              final i = n - 1;
               final (t, mine) = msgs[i];
               return Align(
                 alignment: mine ? Alignment.centerRight : Alignment.centerLeft,

@@ -4,6 +4,8 @@ import '../app/state.dart';
 import '../data/models.dart';
 import '../data/seed.dart';
 import '../router.dart';
+import '../app/theme.dart';
+import '../widgets/art.dart';
 import '../widgets/common.dart';
 import 'apply.dart';
 import 'assistant.dart';
@@ -48,7 +50,7 @@ class _ServicesScreenState extends State<ServicesScreen> with SingleTickerProvid
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: SevaBar(
         automaticallyImplyLeading: false,
         title: Text(context.tr('Services and schemes', 'ಸೇವೆಗಳು ಮತ್ತು ಯೋಜನೆಗಳು')),
         actions: [
@@ -58,7 +60,15 @@ class _ServicesScreenState extends State<ServicesScreen> with SingleTickerProvid
             icon: const Icon(Icons.search),
           ),
         ],
-        bottom: TabBar(controller: tabs, tabs: [
+        bottom: TabBar(
+            controller: tabs,
+            labelColor: Colors.white,
+            unselectedLabelColor: Colors.white70,
+            indicatorColor: Seva.gold,
+            indicatorWeight: 3,
+            dividerColor: Colors.transparent,
+            labelStyle: const TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
+            tabs: [
           Tab(text: context.tr('Services', 'ಸೇವೆಗಳು')),
           Tab(text: context.tr('Schemes', 'ಯೋಜನೆಗಳು')),
         ]),
@@ -381,7 +391,7 @@ class ServiceDetail extends StatelessWidget {
         );
 
     return Scaffold(
-      appBar: AppBar(
+      appBar: SevaBar(
         title: Text(v.isScheme ? context.tr('Scheme', 'ಯೋಜನೆ') : context.tr('Service', 'ಸೇವೆ')),
         actions: [
           IconButton(
@@ -394,33 +404,36 @@ class ServiceDetail extends StatelessWidget {
         ],
       ),
       body: ListView(padding: const EdgeInsets.all(16), children: [
-        Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          IconBadge(v.icon, size: 52),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Semantics(
-                header: true,
-                child: Text(context.loc(v.name), style: context.tt.headlineSmall),
+        GlowPanel(
+          colors: v.isScheme
+              ? const [Color(0xFF0B5D5A), Color(0xFF0E9F8E)]
+              : const [Seva.navy, Seva.blueDark, Seva.blue],
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Expanded(
+                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Semantics(
+                    header: true,
+                    child: Text(context.loc(v.name),
+                        style: context.tt.headlineSmall?.copyWith(color: Colors.white)),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(context.loc(v.dept), style: const TextStyle(color: Colors.white)),
+                ]),
               ),
-              const SizedBox(height: 2),
-              Text(context.loc(v.dept), style: TextStyle(color: context.cs.onSurfaceVariant)),
+              const SizedBox(width: 8),
+              IconArt(v.icon, size: 68),
             ]),
-          ),
-        ]),
-        const SizedBox(height: 12),
-        Wrap(spacing: 6, runSpacing: 6, children: [
-          Pill(v.source, color: context.cs.primary),
-          Pill(context.loc(v.category), color: context.cs.secondary),
-          Pill('${context.tr('Code', 'ಸಂಕೇತ')} ${v.code}', color: context.cs.onSurfaceVariant),
-        ]),
-        const SizedBox(height: 14),
-        Text(context.loc(v.desc), style: const TextStyle(fontSize: 15.5, height: 1.45)),
+            const SizedBox(height: 12),
+            Text(context.loc(v.desc),
+                style: const TextStyle(color: Colors.white, fontSize: 14.5, height: 1.4)),
+          ]),
+        ),
         if (s.readAloud) ...[
           const SizedBox(height: 12),
           ReadAloudBar(text: '${context.loc(v.name)}. ${context.loc(v.desc)}'),
         ],
-        const SizedBox(height: 14),
+        const SizedBox(height: 12),
         SevaCard(
           child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
             if (v.isScheme && v.benefit != null)
@@ -433,6 +446,7 @@ class ServiceDetail extends StatelessWidget {
             fact(Icons.folder_outlined, context.tr('Documents', 'ದಾಖಲೆಗಳು'), '${v.docs.length}'),
           ]),
         ),
+        const SizedBox(height: 12),
         if (v.ruleText != null) ...[
           const SizedBox(height: 12),
           SevaCard(
@@ -453,20 +467,22 @@ class ServiceDetail extends StatelessWidget {
           ),
         ],
         SectionTitle(context.tr('Documents needed', 'ಅಗತ್ಯ ದಾಖಲೆಗಳು')),
-        for (final id in v.docs)
-          Builder(builder: (_) {
-            final d = docById(id);
-            final have = s.lockerDocs.contains(id);
-            return ListTile(
-              contentPadding: EdgeInsets.zero,
-              leading: Icon(d.icon, color: context.cs.primary),
-              title: Text(context.loc(d.name)),
-              trailing: have
-                  ? Pill(context.tr('Ready', 'ಸಿದ್ಧ'),
-                      color: context.cs.secondary, icon: Icons.check)
-                  : null,
-            );
-          }),
+        const SizedBox(height: 6),
+        SevaCard(
+          padding: const EdgeInsets.symmetric(vertical: 4),
+          child: Column(children: [
+            for (final id in v.docs)
+              ListTile(
+                leading: IconBadge(docById(id).icon, size: 36),
+                title: Text(context.loc(docById(id).name),
+                    style: const TextStyle(fontWeight: FontWeight.w600)),
+                trailing: s.lockerDocs.contains(id)
+                    ? Pill(context.tr('Ready', 'ಸಿದ್ಧ'),
+                        color: context.cs.secondary, icon: Icons.check)
+                    : null,
+              ),
+          ]),
+        ),
         SectionTitle(context.tr('How it works', 'ಇದು ಹೇಗೆ ಕೆಲಸ ಮಾಡುತ್ತದೆ')),
         for (final (i, t) in [
           context.tr('Confirm your details', 'ನಿಮ್ಮ ವಿವರಗಳನ್ನು ದೃಢೀಕರಿಸಿ'),
@@ -552,7 +568,7 @@ class _SearchScreenState extends State<SearchScreen> {
       context.tr('Scholarship', 'ವಿದ್ಯಾರ್ಥಿವೇತನ'),
     ];
     return Scaffold(
-      appBar: AppBar(
+      appBar: SevaBar(
         titleSpacing: 0,
         title: Padding(
           padding: const EdgeInsets.only(right: 12),

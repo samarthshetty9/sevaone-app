@@ -4,6 +4,7 @@ import '../app/state.dart';
 import '../app/theme.dart';
 import '../data/models.dart';
 import '../data/seed.dart';
+import '../widgets/art.dart';
 import '../widgets/common.dart';
 
 IconData weatherIcon(String c) => switch (c) {
@@ -66,7 +67,7 @@ class WeatherScreen extends StatelessWidget {
         );
 
     return Scaffold(
-      appBar: AppBar(title: Text(context.tr('Weather and air quality', 'ಹವಾಮಾನ ಮತ್ತು ಗಾಳಿಯ ಗುಣಮಟ್ಟ'))),
+      appBar: SevaBar(title: Text(context.tr('Weather and air quality', 'ಹವಾಮಾನ ಮತ್ತು ಗಾಳಿಯ ಗುಣಮಟ್ಟ'))),
       body: ListView(padding: const EdgeInsets.all(16), children: [
         SizedBox(
           height: 44,
@@ -104,6 +105,27 @@ class WeatherScreen extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         SevaCard(
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text(context.tr('Today', 'ಇಂದು'), style: context.tt.titleMedium),
+            const SizedBox(height: 8),
+            Row(children: [
+              for (var i = 0; i < w.hourly.length; i++)
+                Expanded(
+                  child: Column(children: [
+                    Text('${(9 + i * 2) % 12 == 0 ? 12 : (9 + i * 2) % 12}${9 + i * 2 < 12 ? 'a' : 'p'}',
+                        style: TextStyle(fontSize: 11, color: context.cs.onSurfaceVariant)),
+                    const SizedBox(height: 4),
+                    Icon(weatherIcon(w.condition), size: 18, color: context.cs.primary),
+                    const SizedBox(height: 4),
+                    Text('${w.hourly[i]}°',
+                        style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700)),
+                  ]),
+                ),
+            ]),
+          ]),
+        ),
+        const SizedBox(height: 12),
+        SevaCard(
           child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
             stat(Icons.water_drop_outlined, context.tr('Humidity', 'ತೇವಾಂಶ'), '${w.humidity}%'),
             stat(Icons.air, context.tr('Wind', 'ಗಾಳಿ'), '${w.wind} km/h'),
@@ -121,16 +143,20 @@ class WeatherScreen extends StatelessWidget {
               Pill(context.loc(band.$1), color: band.$2),
             ]),
             const SizedBox(height: 8),
-            Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
-              Text('${w.aqi}', style: context.tt.headlineMedium?.copyWith(fontSize: 36)),
-              const SizedBox(width: 6),
-              const Padding(padding: EdgeInsets.only(bottom: 6), child: Text('AQI')),
+            Row(children: [
+              ArcGauge(value: w.aqi / 300, big: '${w.aqi}', small: 'AQI', size: 138),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text('PM2.5', style: TextStyle(fontSize: 12.5, color: context.cs.onSurfaceVariant)),
+                  Text('${w.pm25} µg/m³', style: const TextStyle(fontWeight: FontWeight.w700)),
+                  const SizedBox(height: 8),
+                  Text('PM10', style: TextStyle(fontSize: 12.5, color: context.cs.onSurfaceVariant)),
+                  Text('${w.pm10} µg/m³', style: const TextStyle(fontWeight: FontWeight.w700)),
+                ]),
+              ),
             ]),
-            Text('PM2.5 ${w.pm25}  ·  PM10 ${w.pm10}',
-                style: TextStyle(fontSize: 13, color: context.cs.onSurfaceVariant)),
-            const SizedBox(height: 10),
-            _AqiScale(w.aqi),
-            const SizedBox(height: 10),
+            const SizedBox(height: 4),
             Text(context.loc(band.$3)),
           ]),
         ),
@@ -161,7 +187,7 @@ class WeatherScreen extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         Text(
-          context.tr('Simulated readings for demonstration.', 'ಪ್ರದರ್ಶನಕ್ಕಾಗಿ ಅನುಕರಿತ ಮಾಹಿತಿ.'),
+          context.tr('Updated a few minutes ago.', 'ಕೆಲವು ನಿಮಿಷಗಳ ಹಿಂದೆ ನವೀಕರಿಸಲಾಗಿದೆ.'),
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 12.5, color: context.cs.onSurfaceVariant),
         ),
@@ -173,53 +199,5 @@ class WeatherScreen extends StatelessWidget {
     const en = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
     const kn = ['ಸೋಮ', 'ಮಂಗಳ', 'ಬುಧ', 'ಗುರು', 'ಶುಕ್ರ', 'ಶನಿ', 'ಭಾನು'];
     return tx(en[d.weekday - 1], kn[d.weekday - 1]);
-  }
-}
-
-class _AqiScale extends StatelessWidget {
-  final int aqi;
-  const _AqiScale(this.aqi);
-
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, c) {
-      final x = (aqi / 300).clamp(0.0, 1.0) * (c.maxWidth - 14);
-      return SizedBox(
-        height: 18,
-        child: Stack(children: [
-          Positioned(
-            left: 0,
-            right: 0,
-            top: 5,
-            child: Container(
-              height: 8,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4),
-                gradient: const LinearGradient(colors: [
-                  Seva.green,
-                  Color(0xFFB5C934),
-                  Seva.gold,
-                  Seva.saffron,
-                  Seva.red,
-                ]),
-              ),
-            ),
-          ),
-          Positioned(
-            left: x,
-            top: 0,
-            child: Container(
-              width: 14,
-              height: 18,
-              decoration: BoxDecoration(
-                color: context.cs.surface,
-                borderRadius: BorderRadius.circular(5),
-                border: Border.all(color: context.cs.onSurface, width: 2),
-              ),
-            ),
-          ),
-        ]),
-      );
-    });
   }
 }

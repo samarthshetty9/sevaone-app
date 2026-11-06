@@ -1,38 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../app/state.dart';
 import '../app/theme.dart';
 import '../data/models.dart';
-
-/// Marks the build as a demo everywhere it matters, so nobody mistakes it for
-/// the live government service.
-class DemoChip extends StatelessWidget {
-  final bool onDark;
-  const DemoChip({super.key, this.onDark = false});
-
-  @override
-  Widget build(BuildContext context) {
-    return Semantics(
-      label: context.tr('Demo app, all data is simulated', 'ಡೆಮೊ ಆ್ಯಪ್, ಎಲ್ಲಾ ಮಾಹಿತಿ ಅನುಕರಿತ'),
-      excludeSemantics: true,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-        decoration: BoxDecoration(
-          color: onDark ? Colors.white.withValues(alpha: 0.16) : Seva.gold.withValues(alpha: 0.22),
-          borderRadius: BorderRadius.circular(999),
-        ),
-        child: Text(context.tr('DEMO', 'ಡೆಮೊ'),
-            style: TextStyle(
-                fontSize: 10.5,
-                fontWeight: FontWeight.w700,
-                letterSpacing: 0.6,
-                color: onDark ? Colors.white : const Color(0xFF7A5200))),
-      ),
-    );
-  }
-}
+import 'art.dart';
 
 class SevaCard extends StatelessWidget {
   final Widget child;
@@ -50,16 +25,77 @@ class SevaCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final card = Card(
-      color: color,
-      clipBehavior: Clip.antiAlias,
-      child: InkWell(
-        onTap: onTap,
-        child: Padding(padding: padding, child: child),
+    final dark = context.cs.brightness == Brightness.dark;
+    final contrast = context.watchApp.highContrast;
+    final card = Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(18),
+        border: contrast ? Border.all(color: context.cs.outlineVariant, width: 1.5) : null,
+        boxShadow: dark
+            ? null
+            : const [BoxShadow(color: Color(0x141A1C37), blurRadius: 20, offset: Offset(0, 6))],
+      ),
+      child: Material(
+        color: color == null ? context.cs.surfaceContainerLow : Color.alphaBlend(color!, context.cs.surfaceContainerLow),
+        borderRadius: BorderRadius.circular(18),
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          onTap: onTap,
+          child: Padding(padding: padding, child: child),
+        ),
       ),
     );
     if (semanticLabel == null) return card;
     return Semantics(button: onTap != null, label: semanticLabel, child: card);
+  }
+}
+
+/// Branded page header: indigo gradient with the Vidhana Soudha skyline.
+class SevaBar extends StatelessWidget implements PreferredSizeWidget {
+  final Widget? title;
+  final List<Widget>? actions;
+  final bool automaticallyImplyLeading;
+  final Widget? leading;
+  final PreferredSizeWidget? bottom;
+  final double? titleSpacing;
+  const SevaBar({
+    super.key,
+    this.title,
+    this.actions,
+    this.automaticallyImplyLeading = true,
+    this.leading,
+    this.bottom,
+    this.titleSpacing,
+  });
+
+  @override
+  Size get preferredSize =>
+      Size.fromHeight(72 + (bottom?.preferredSize.height ?? 0));
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      toolbarHeight: 72,
+      backgroundColor: Seva.navy,
+      foregroundColor: Colors.white,
+      surfaceTintColor: Colors.transparent,
+      systemOverlayStyle: SystemUiOverlayStyle.light,
+      automaticallyImplyLeading: automaticallyImplyLeading,
+      leading: leading,
+      title: title,
+      titleSpacing: titleSpacing,
+      titleTextStyle:
+          context.tt.titleLarge?.copyWith(color: Colors.white, fontSize: 19),
+      actions: actions,
+      bottom: bottom,
+      clipBehavior: Clip.antiAlias,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(24))),
+      flexibleSpace: Container(
+        decoration: const BoxDecoration(gradient: Seva.headerGradient),
+        child: const Skyline(height: 96, color: Color(0x10FFFFFF)),
+      ),
+    );
   }
 }
 
@@ -72,12 +108,13 @@ class SectionHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 22, 8, 8),
+      padding: const EdgeInsets.fromLTRB(16, 20, 8, 10),
       child: Row(children: [
         Expanded(
           child: Semantics(
               header: true,
-              child: Text(title, style: context.tt.titleLarge)),
+              child: Text(title,
+                  style: context.tt.titleLarge?.copyWith(fontSize: 18))),
         ),
         if (action != null) TextButton(onPressed: onAction, child: Text(action!)),
       ]),
@@ -93,15 +130,21 @@ class IconBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final c = color ?? context.cs.primary;
+    final c = color ?? Seva.toneFor(icon);
+    final hsl = HSLColor.fromColor(c);
+    final deep = hsl.withLightness((hsl.lightness - .1).clamp(0.0, 1.0)).toColor();
     return Container(
       width: size,
       height: size,
       decoration: BoxDecoration(
-        color: c.withValues(alpha: 0.13),
-        borderRadius: BorderRadius.circular(size * 0.3),
+        gradient: LinearGradient(
+            begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [c, deep]),
+        borderRadius: BorderRadius.circular(size * .32),
+        boxShadow: size >= 40
+            ? [BoxShadow(color: c.withValues(alpha: .28), blurRadius: 10, offset: const Offset(0, 4))]
+            : null,
       ),
-      child: Icon(icon, color: c, size: size * 0.55),
+      child: Icon(icon, color: Colors.white, size: size * .54),
     );
   }
 }
@@ -297,8 +340,7 @@ String sourceName(AppSource s) => switch (s) {
       AppSource.token => tx('Token', 'ಟೋಕನ್'),
     };
 
-/// Simulated "read aloud": highlights sentences in sequence. The real screen
-/// reader path is VoiceOver/TalkBack, which works through Semantics labels.
+/// Read aloud: steps through sentences. Screen readers work through Semantics.
 class ReadAloudBar extends StatefulWidget {
   final String text;
   const ReadAloudBar({super.key, required this.text});
@@ -367,4 +409,14 @@ class _ReadAloudBarState extends State<ReadAloudBar> {
       ]),
     );
   }
+}
+
+
+/// Places a real phone call through the device dialler.
+Future<void> dial(String number) async {
+  final uri = Uri(scheme: 'tel', path: number.replaceAll('-', ''));
+  try {
+    if (await launchUrl(uri)) return;
+  } catch (_) {}
+  toast(tx('Call $number from your phone', 'ನಿಮ್ಮ ಫೋನ್‌ನಿಂದ $number ಗೆ ಕರೆ ಮಾಡಿ'));
 }

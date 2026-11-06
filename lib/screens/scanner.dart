@@ -100,14 +100,10 @@ class _ScannerScreenState extends State<ScannerScreen> with SingleTickerProvider
     final sample = _sample(sampleId);
     return Scaffold(
       backgroundColor: const Color(0xFF0E0F1C),
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF0E0F1C),
-        foregroundColor: Colors.white,
-        titleTextStyle: context.tt.titleLarge?.copyWith(color: Colors.white, fontSize: 18),
+      appBar: SevaBar(
         title: Text(captured
             ? context.tr('Review scan', 'ಸ್ಕ್ಯಾನ್ ಪರಿಶೀಲಿಸಿ')
             : context.tr('Scan document', 'ದಾಖಲೆ ಸ್ಕ್ಯಾನ್')),
-        actions: const [DemoChip(onDark: true), SizedBox(width: 16)],
       ),
       body: Column(children: [
         Expanded(
@@ -346,7 +342,7 @@ class _OcrScreenState extends State<OcrScreen> {
     final d = widget.d;
     final fields = d.ocr;
     return Scaffold(
-      appBar: AppBar(title: Text(context.loc(d.title))),
+      appBar: SevaBar(title: Text(context.loc(d.title))),
       body: ListView(padding: const EdgeInsets.all(16), children: [
         SizedBox(
           height: 250,
@@ -391,8 +387,8 @@ class _OcrScreenState extends State<OcrScreen> {
           ),
           const SizedBox(height: 12),
           FilledButton(
-            onPressed: () => toast(tx('Details saved for autofill (demo)',
-                'ಸ್ವಯಂ ಭರ್ತಿಗಾಗಿ ವಿವರಗಳನ್ನು ಉಳಿಸಲಾಗಿದೆ (ಡೆಮೊ)')),
+            onPressed: () => toast(tx('Details saved for autofill',
+                'ಸ್ವಯಂ ಭರ್ತಿಗಾಗಿ ವಿವರಗಳನ್ನು ಉಳಿಸಲಾಗಿದೆ')),
             child: Text(context.tr('Use for autofill', 'ಸ್ವಯಂ ಭರ್ತಿಗೆ ಬಳಸಿ')),
           ),
         ],

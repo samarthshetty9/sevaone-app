@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../app/state.dart';
 import '../data/seed.dart';
 import '../router.dart';
+import '../app/theme.dart';
+import '../widgets/art.dart';
 import '../widgets/common.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -12,103 +14,126 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final s = context.watchApp;
     Widget tile(IconData i, String t, VoidCallback tap, {String? sub}) => ListTile(
-          contentPadding: EdgeInsets.zero,
-          leading: Icon(i, color: context.cs.primary),
-          title: Text(t),
+          leading: IconBadge(i, size: 36),
+          title: Text(t, style: const TextStyle(fontWeight: FontWeight.w600)),
           subtitle: sub == null ? null : Text(sub),
           trailing: const Icon(Icons.chevron_right),
           onTap: tap,
         );
+    Widget group(String title, List<Widget> kids) => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 18, bottom: 8, left: 4),
+              child: Text(title, style: context.tt.titleLarge?.copyWith(fontSize: 17)),
+            ),
+            SevaCard(
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              child: Column(children: kids),
+            ),
+          ],
+        );
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text(context.tr('Profile', 'ಪ್ರೊಫೈಲ್')),
-      ),
-      body: ListView(padding: const EdgeInsets.fromLTRB(16, 8, 16, 24), children: [
-        SevaCard(
+      appBar: SevaBar(title: Text(context.tr('Profile', 'ಪ್ರೊಫೈಲ್'))),
+      body: ListView(padding: const EdgeInsets.fromLTRB(16, 16, 16, 28), children: [
+        GlowPanel(
           child: Row(children: [
-            const IconBadge(Icons.person_outline, size: 52),
-            const SizedBox(width: 12),
+            SizedBox(
+              width: 72,
+              height: 72,
+              child: Stack(alignment: Alignment.center, children: [
+                SizedBox.expand(
+                  child: CircularProgressIndicator(
+                    value: s.profileScore / 10,
+                    strokeWidth: 5,
+                    color: Seva.gold,
+                    backgroundColor: Colors.white24,
+                  ),
+                ),
+                CircleAvatar(
+                  radius: 28,
+                  backgroundColor: Colors.white,
+                  child: Text(context.tr('AG', 'ಅ'),
+                      style: const TextStyle(
+                          color: Seva.navy, fontWeight: FontWeight.w700, fontSize: 18)),
+                ),
+              ]),
+            ),
+            const SizedBox(width: 14),
             Expanded(
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Text(context.loc(citizenName), style: context.tt.titleLarge),
+                Text(context.loc(citizenName),
+                    style: context.tt.titleLarge?.copyWith(color: Colors.white)),
                 Text('$citizenMobile · ${context.loc(citizenDistrict)}',
-                    style: TextStyle(color: context.cs.onSurfaceVariant)),
+                    style: const TextStyle(color: Colors.white, fontSize: 13)),
+                const SizedBox(height: 4),
+                Text(context.tr('Profile ${s.profileScore}/10 complete', 'ಪ್ರೊಫೈಲ್ ${s.profileScore}/10 ಪೂರ್ಣ'),
+                    style: const TextStyle(color: Seva.gold, fontWeight: FontWeight.w600, fontSize: 13)),
               ]),
             ),
           ]),
         ),
-        const SizedBox(height: 10),
-        ListTile(
-          contentPadding: EdgeInsets.zero,
-          leading: Icon(Icons.translate, color: context.cs.primary),
-          title: Text(context.tr('Language', 'ಭಾಷೆ')),
-          trailing: SegmentedButton<String>(
-            showSelectedIcon: false,
-            segments: const [
-              ButtonSegment(value: 'kn', label: Text('ಕನ್ನಡ')),
-              ButtonSegment(value: 'en', label: Text('English')),
-            ],
-            selected: {s.lang},
-            onSelectionChanged: (v) => app.set(() => app.lang = v.first),
+        group(context.tr('My account', 'ನನ್ನ ಖಾತೆ'), [
+          tile(Icons.group_add, context.tr('Family profiles', 'ಕುಟುಂಬದ ಪ್ರೊಫೈಲ್‌ಗಳು'), () => openRoute('family')),
+          tile(Icons.receipt_long, context.tr('Transaction history', 'ವಹಿವಾಟು ಇತಿಹಾಸ'), () => openRoute('transactions')),
+          tile(Icons.timeline, context.tr('Track status', 'ಸ್ಥಿತಿ ಟ್ರ್ಯಾಕ್ ಮಾಡಿ'), () => openRoute('track')),
+          tile(Icons.qr_code_2, context.tr('My QR code', 'ನನ್ನ ಕ್ಯೂಆರ್ ಕೋಡ್'), () => openRoute('myqr')),
+          tile(Icons.lock, 'DigiLocker', () => openRoute('documents'),
+              sub: s.digilockerLinked
+                  ? context.tr('Linked', 'ಲಿಂಕ್ ಆಗಿದೆ')
+                  : context.tr('Not linked', 'ಲಿಂಕ್ ಆಗಿಲ್ಲ')),
+        ]),
+        group(context.tr('Preferences', 'ಆದ್ಯತೆಗಳು'), [
+          ListTile(
+            leading: const IconBadge(Icons.translate, size: 36),
+            title: Text(context.tr('Language', 'ಭಾಷೆ'), style: const TextStyle(fontWeight: FontWeight.w600)),
+            trailing: SegmentedButton<String>(
+              showSelectedIcon: false,
+              segments: const [
+                ButtonSegment(value: 'kn', label: Text('ಕ')),
+                ButtonSegment(value: 'en', label: Text('En')),
+              ],
+              selected: {s.lang},
+              onSelectionChanged: (v) => app.set(() => app.lang = v.first),
+            ),
           ),
-        ),
-        SwitchListTile(
-          contentPadding: EdgeInsets.zero,
-          secondary: Icon(Icons.fingerprint, color: context.cs.primary),
-          title: Text(context.tr('Fingerprint or Face ID login', 'ಬೆರಳಚ್ಚು ಅಥವಾ ಮುಖ ಗುರುತು ಲಾಗಿನ್')),
-          value: s.biometric,
-          onChanged: (v) => app.set(() => app.biometric = v),
-        ),
-        SwitchListTile(
-          contentPadding: EdgeInsets.zero,
-          secondary: Icon(Icons.dark_mode_outlined, color: context.cs.primary),
-          title: Text(context.tr('Dark mode', 'ಡಾರ್ಕ್ ಮೋಡ್')),
-          value: s.darkMode,
-          onChanged: (v) => app.set(() => app.darkMode = v),
-        ),
-        tile(Icons.group_add_outlined, context.tr('Family profiles', 'ಕುಟುಂಬದ ಪ್ರೊಫೈಲ್‌ಗಳು'),
-            () => openRoute('family')),
-        tile(Icons.receipt_long_outlined, context.tr('Transaction history', 'ವಹಿವಾಟು ಇತಿಹಾಸ'),
-            () => openRoute('transactions')),
-        tile(Icons.timeline, context.tr('Track status', 'ಸ್ಥಿತಿ ಟ್ರ್ಯಾಕ್ ಮಾಡಿ'), () => openRoute('track')),
-        tile(Icons.qr_code_2, context.tr('My QR code', 'ನನ್ನ ಕ್ಯೂಆರ್ ಕೋಡ್'), () => openRoute('myqr')),
-        tile(Icons.menu_book_outlined, context.tr('Service directory', 'ಸೇವಾ ಡೈರೆಕ್ಟರಿ'),
-            () => openRoute('directory')),
-        tile(Icons.sign_language_outlined, context.tr('Sign language chatbot', 'ಸಂಕೇತ ಭಾಷೆ ಚಾಟ್‌ಬಾಟ್'),
-            () => openRoute('isl')),
-        tile(Icons.network_check, context.tr('Mobile signal check', 'ಮೊಬೈಲ್ ಸಿಗ್ನಲ್ ಪರಿಶೀಲನೆ'),
-            () => openRoute('signal')),
-        tile(Icons.accessibility_new, context.tr('Accessibility', 'ಪ್ರವೇಶಿಸುವಿಕೆ'),
-            () => openRoute('accessibility')),
-        tile(Icons.notifications_outlined, context.tr('Notifications', 'ಅಧಿಸೂಚನೆಗಳು'),
-            () => openRoute('notifications')),
-        tile(Icons.lock_outline, 'DigiLocker', () => openRoute('documents'),
-            sub: s.digilockerLinked
-                ? context.tr('Linked', 'ಲಿಂಕ್ ಆಗಿದೆ')
-                : context.tr('Not linked', 'ಲಿಂಕ್ ಆಗಿಲ್ಲ')),
-        tile(Icons.support_agent_outlined, context.tr('Help', 'ಸಹಾಯ'), () => openRoute('help')),
-        tile(Icons.star_outline, context.tr('Give feedback', 'ಪ್ರತಿಕ್ರಿಯೆ ನೀಡಿ'),
-            () => openRoute('feedback')),
-        tile(Icons.checklist_rtl, context.tr('Feature map', 'ವೈಶಿಷ್ಟ್ಯ ನಕ್ಷೆ'),
-            () => openRoute('features'),
-            sub: context.tr('Every planned feature, one tap away', 'ಪ್ರತಿ ವೈಶಿಷ್ಟ್ಯವೂ ಒಂದೇ ಟ್ಯಾಪ್‌ನಲ್ಲಿ')),
+          SwitchListTile(
+            secondary: const IconBadge(Icons.dark_mode, size: 36),
+            title: Text(context.tr('Dark mode', 'ಡಾರ್ಕ್ ಮೋಡ್'), style: const TextStyle(fontWeight: FontWeight.w600)),
+            value: s.darkMode,
+            onChanged: (v) => app.set(() => app.darkMode = v),
+          ),
+          SwitchListTile(
+            secondary: const IconBadge(Icons.fingerprint, size: 36),
+            title: Text(context.tr('Fingerprint or Face ID', 'ಬೆರಳಚ್ಚು ಅಥವಾ ಮುಖ ಗುರುತು'),
+                style: const TextStyle(fontWeight: FontWeight.w600)),
+            value: s.biometric,
+            onChanged: (v) => app.set(() => app.biometric = v),
+          ),
+          tile(Icons.notifications, context.tr('Notifications', 'ಅಧಿಸೂಚನೆಗಳು'), () => openRoute('notifications')),
+          tile(Icons.accessibility_new, context.tr('Accessibility', 'ಪ್ರವೇಶಿಸುವಿಕೆ'), () => openRoute('accessibility')),
+        ]),
+        group(context.tr('Help and tools', 'ಸಹಾಯ ಮತ್ತು ಸಾಧನಗಳು'), [
+          tile(Icons.support_agent, context.tr('Help', 'ಸಹಾಯ'), () => openRoute('help')),
+          tile(Icons.menu_book, context.tr('Service directory', 'ಸೇವಾ ಡೈರೆಕ್ಟರಿ'), () => openRoute('directory')),
+          tile(Icons.sign_language, context.tr('Sign language chatbot', 'ಸಂಕೇತ ಭಾಷೆ ಚಾಟ್‌ಬಾಟ್'), () => openRoute('isl')),
+          tile(Icons.network_check, context.tr('Mobile signal check', 'ಮೊಬೈಲ್ ಸಿಗ್ನಲ್ ಪರಿಶೀಲನೆ'), () => openRoute('signal')),
+          tile(Icons.star, context.tr('Give feedback', 'ಪ್ರತಿಕ್ರಿಯೆ ನೀಡಿ'), () => openRoute('feedback')),
+        ]),
         const SizedBox(height: 12),
         if (s.digilockerLinked)
           TextButton(
             onPressed: app.unlinkDigilocker,
             child: Text(context.tr('Unlink DigiLocker', 'ಡಿಜಿಲಾಕರ್ ಅನ್‌ಲಿಂಕ್ ಮಾಡಿ')),
           ),
-        TextButton(
-          onPressed: app.logout,
-          child: Text(context.tr('Sign out', 'ಸೈನ್ ಔಟ್')),
-        ),
-        TextButton(
+        OutlinedButton.icon(
+          style: OutlinedButton.styleFrom(foregroundColor: context.cs.error),
           onPressed: () {
             Navigator.of(context).popUntil((r) => r.isFirst);
-            app.resetDemo();
+            app.logout();
           },
-          child: Text(context.tr('Reset demo', 'ಡೆಮೊ ಮರುಹೊಂದಿಸಿ')),
+          icon: const Icon(Icons.logout),
+          label: Text(context.tr('Sign out', 'ಸೈನ್ ಔಟ್')),
         ),
       ]),
     );
@@ -123,15 +148,21 @@ class AccessibilityScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final s = context.watchApp;
-    Widget sw(String t, String sub, bool v, void Function(bool) f) => SwitchListTile(
-          contentPadding: EdgeInsets.zero,
-          title: Text(t),
-          subtitle: Text(sub),
-          value: v,
-          onChanged: (x) => app.set(() => f(x)),
+    Widget sw(String t, String sub, bool v, void Function(bool) f) => Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: SevaCard(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 2),
+            child: SwitchListTile(
+              contentPadding: EdgeInsets.zero,
+              title: Text(t, style: const TextStyle(fontWeight: FontWeight.w600)),
+              subtitle: Text(sub),
+              value: v,
+              onChanged: (x) => app.set(() => f(x)),
+            ),
+          ),
         );
     return Scaffold(
-      appBar: AppBar(title: Text(context.tr('Accessibility', 'ಪ್ರವೇಶಿಸುವಿಕೆ'))),
+      appBar: SevaBar(title: Text(context.tr('Accessibility', 'ಪ್ರವೇಶಿಸುವಿಕೆ'))),
       body: ListView(padding: const EdgeInsets.all(16), children: [
         Text(context.tr('Text size', 'ಪಠ್ಯ ಗಾತ್ರ'), style: context.tt.titleMedium),
         Slider(
@@ -145,7 +176,7 @@ class AccessibilityScreen extends StatelessWidget {
         SevaCard(
           child: Text(context.tr('This is how text will look.', 'ಪಠ್ಯ ಹೀಗೆ ಕಾಣುತ್ತದೆ.')),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 14),
         sw(context.tr('High contrast', 'ಹೆಚ್ಚಿನ ಕಾಂಟ್ರಾಸ್ಟ್'),
             context.tr('Stronger colours and bold text', 'ಗಾಢ ಬಣ್ಣಗಳು ಮತ್ತು ದಪ್ಪ ಪಠ್ಯ'),
             s.highContrast, (v) => app.highContrast = v),
@@ -171,77 +202,6 @@ class AccessibilityScreen extends StatelessWidget {
           ]),
         ),
       ]),
-    );
-  }
-}
-
-/// Demo aid: the plan's feature list, with a jump to each one.
-class FeatureMapScreen extends StatelessWidget {
-  const FeatureMapScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    context.watchApp;
-    const f = <(int, String, String, String)>[
-      (1, 'Integrated DigiLocker', 'Improved', 'documents'),
-      (2, 'Automatic document fetching', 'Live', 'services'),
-      (3, 'Voice bot', 'New', 'voice'),
-      (4, 'Kannada and English', 'Live', 'profile'),
-      (5, 'SMS-based access', 'New', 'sms'),
-      (6, 'Voice-based discovery', 'Live', 'search'),
-      (7, 'Feedback', 'New', 'feedback'),
-      (8, 'Application tracking', 'Improved', 'track'),
-      (9, 'Utility payments', 'New', 'bills'),
-      (10, 'Schemes and services split', 'Improved', 'schemes'),
-      (11, 'Eligibility recommendation', 'New', 'eligibility'),
-      (12, 'Accessibility', 'New', 'accessibility'),
-      (13, 'Document verification', 'Improved', 'verify'),
-      (14, 'iPGRS grievance', 'Live', 'grievance'),
-      (15, 'Aadhaar and e-Sign', 'Improved', 'services'),
-      (16, 'Live chat and helpline', 'Improved', 'chat'),
-      (17, 'Document scanner', 'New', 'scanner'),
-      (18, 'OCR', 'New', 'scanner'),
-      (19, 'GramaOne / Karnataka One centres', 'New', 'centres'),
-      (20, 'Weather and AQI', 'New', 'weather'),
-      (21, 'Push notifications', 'New', 'notifications'),
-      (22, 'Life events (from UMANG)', 'New', 'life'),
-      (23, 'Finance calculators (from UMANG)', 'New', 'calculators'),
-      (24, 'IVR helpline (from UMANG)', 'New', 'help'),
-      (25, 'Biometric login (from UMANG)', 'New', 'profile'),
-      (26, 'Seva AI home and situations (from UMANG)', 'New', 'life'),
-      (27, 'Browse by persona and category (from UMANG)', 'New', 'services'),
-      (28, 'Scheme and document explorers (from UMANG)', 'New', 'schemes'),
-      (29, 'Helplines, emergency, jobs (from UMANG)', 'New', 'helplines'),
-      (30, 'DIGIPIN and authenticator (from UMANG)', 'New', 'digipin'),
-      (31, 'WhatsApp channel (from UMANG)', 'New', 'whatsapp'),
-      (32, 'Sign language bot, signal check, QR (from UMANG)', 'New', 'isl'),
-      (33, 'Family, transactions, directory (from UMANG)', 'New', 'family'),
-    ];
-    Color tone(String s) => switch (s) {
-          'New' => context.cs.primary,
-          'Improved' => context.cs.secondary,
-          _ => context.cs.onSurfaceVariant,
-        };
-    return Scaffold(
-      appBar: AppBar(title: Text(context.tr('Feature map', 'ವೈಶಿಷ್ಟ್ಯ ನಕ್ಷೆ'))),
-      body: ListView.separated(
-        padding: const EdgeInsets.all(16),
-        itemCount: f.length,
-        separatorBuilder: (_, _) => const Divider(height: 1),
-        itemBuilder: (_, i) {
-          final (n, name, status, route) = f[i];
-          return ListTile(
-            contentPadding: EdgeInsets.zero,
-            leading: SizedBox(
-              width: 26,
-              child: Text('$n', style: const TextStyle(fontWeight: FontWeight.w700)),
-            ),
-            title: Text(name),
-            trailing: Pill(status, color: tone(status)),
-            onTap: () => openRoute(route),
-          );
-        },
-      ),
     );
   }
 }

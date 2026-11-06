@@ -1,10 +1,12 @@
 # Architecture
 
-**Stack:** Flutter 3.47 / Dart 3.13, Material 3. No third-party packages and no native plugins, so builds need no CocoaPods and nothing touches the camera, microphone, network or real payments. Targets: iOS, Android, web.
+**Stack:** Flutter 3.47 / Dart 3.13, Material 3. The only plugin is `url_launcher`, for real phone calls; nothing touches the camera, microphone, network or real payments. Targets: iOS, Android, web.
 
-**Entry:** `lib/main.dart` loads the catalogue, then `RootGate` picks language screen, login or `Shell` (five tabs: Home, Services, Track, Documents, Profile).
+**Entry:** `lib/main.dart` loads the catalogue, then `RootGate` picks language screen, login or `Shell` (Home, Services, Documents, Track, with a raised centre Ask Seva button). Profile opens from the avatar on Home.
 
 **State:** one in-memory `AppState` (`lib/app/state.dart`), exposed as the global `app`. In `build`, `context.tr` / `context.loc` / `context.watchApp` subscribe the widget through the `AppScope` InheritedNotifier. In callbacks use `app` and the global `tx()`. Nothing persists: a restart resets the demo, as does Profile > Reset demo.
+
+**Design system:** `lib/widgets/art.dart` and `common.dart`. `SevaBar` is the header on every page, `GlowPanel` the gradient hero that opens most screens, `SevaCard` the shadowed card, `IconBadge` the gradient icon tile (colour comes from the icon via `Seva.toneFor`). `Skyline` paints the Vidhana Soudha motif. Open a new screen with a `GlowPanel` and avoid bare lists on the page background. Anything painted beyond its box must clip, or it bleeds over page content.
 
 **Language:** every string is inline as `(en, kn)`; data uses `L(en, kn)`. Catalogue entries from `assets/data/catalog.json` are English only, as in the source CSV.
 
@@ -23,4 +25,4 @@
 
 `tool/capture_screens_test.dart` renders every screen to `screenshots/` (git-ignored) with the real fonts; run it with `flutter test tool/capture_screens_test.dart --update-goldens`. Look at the output: it catches visual bugs, like dark-on-dark titles, that the sweep cannot.
 
-**Known constraints:** Kannada copy is machine-written and needs native review. Android has not been built here (no Android SDK).
+**Known constraints:** Kannada copy is machine-written and needs native review. Android has not been built here (no Android SDK). `dial()` places real calls, so the emergency and helpline numbers must stay correct.

@@ -593,3 +593,32 @@ const faqs = <(L, L)>[
         'ಯಾವುದೇ ಫೋನ್‌ನಿಂದ ಎಸ್‌ಎಂಎಸ್ ಬಳಸಿ, 1902ಗೆ ಕರೆ ಮಾಡಿ, ಅಥವಾ ಗ್ರಾಮ ಒನ್ / ಕರ್ನಾಟಕ ಒನ್ ಕೇಂದ್ರಕ್ಕೆ ಭೇಟಿ ನೀಡಿ.')
   ),
 ];
+
+class Job {
+  final L title, dept, place, pay, qualification;
+  final int openings, daysLeft;
+  final String field; // admin | engineering | health | transport | education
+  const Job(this.title, this.dept, this.place, this.pay, this.qualification, this.openings,
+      this.daysLeft, this.field);
+}
+
+const jobs = <Job>[
+  Job(L('Village Accountant', 'ಗ್ರಾಮ ಲೆಕ್ಕಿಗ'), L('Revenue Department', 'ಕಂದಾಯ ಇಲಾಖೆ'),
+      L('Across Karnataka', 'ಕರ್ನಾಟಕದಾದ್ಯಂತ'), L('₹21,400 – ₹42,000', '₹21,400 – ₹42,000'),
+      L('PUC pass', 'ಪಿಯುಸಿ ಉತ್ತೀರ್ಣ'), 1000, 42, 'admin'),
+  Job(L('Junior Engineer (Electrical)', 'ಕಿರಿಯ ಇಂಜಿನಿಯರ್ (ವಿದ್ಯುತ್)'), L('BESCOM', 'ಬೆಸ್ಕಾಂ'),
+      L('Bengaluru', 'ಬೆಂಗಳೂರು'), L('₹33,450 – ₹62,600', '₹33,450 – ₹62,600'),
+      L('Diploma in Electrical', 'ಎಲೆಕ್ಟ್ರಿಕಲ್ ಡಿಪ್ಲೊಮಾ'), 120, 18, 'engineering'),
+  Job(L('Staff Nurse', 'ಸ್ಟಾಫ್ ನರ್ಸ್'), L('Health and Family Welfare', 'ಆರೋಗ್ಯ ಮತ್ತು ಕುಟುಂಬ ಕಲ್ಯಾಣ'),
+      L('District hospitals', 'ಜಿಲ್ಲಾ ಆಸ್ಪತ್ರೆಗಳು'), L('₹30,350 – ₹58,250', '₹30,350 – ₹58,250'),
+      L('B.Sc Nursing', 'ಬಿ.ಎಸ್ಸಿ ನರ್ಸಿಂಗ್'), 340, 9, 'health'),
+  Job(L('Bus Conductor', 'ಬಸ್ ನಿರ್ವಾಹಕ'), L('BMTC', 'ಬಿಎಂಟಿಸಿ'), L('Bengaluru', 'ಬೆಂಗಳೂರು'),
+      L('₹18,660 – ₹25,300', '₹18,660 – ₹25,300'), L('PUC pass', 'ಪಿಯುಸಿ ಉತ್ತೀರ್ಣ'), 2500, 27,
+      'transport'),
+  Job(L('Primary School Teacher', 'ಪ್ರಾಥಮಿಕ ಶಾಲಾ ಶಿಕ್ಷಕ'), L('School Education', 'ಶಾಲಾ ಶಿಕ್ಷಣ'),
+      L('Across Karnataka', 'ಕರ್ನಾಟಕದಾದ್ಯಂತ'), L('₹25,800 – ₹51,400', '₹25,800 – ₹51,400'),
+      L('D.El.Ed and TET', 'ಡಿ.ಇಡಿ ಮತ್ತು ಟಿಇಟಿ'), 1500, 33, 'education'),
+  Job(L('First Division Assistant', 'ಪ್ರಥಮ ದರ್ಜೆ ಸಹಾಯಕ'), L('Karnataka Public Service Commission', 'ಕರ್ನಾಟಕ ಲೋಕಸೇವಾ ಆಯೋಗ'),
+      L('Various departments', 'ವಿವಿಧ ಇಲಾಖೆಗಳು'), L('₹37,900 – ₹70,850', '₹37,900 – ₹70,850'),
+      L('Any degree', 'ಯಾವುದೇ ಪದವಿ'), 410, 21, 'admin'),
+];

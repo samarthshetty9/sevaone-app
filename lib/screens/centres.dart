@@ -33,7 +33,7 @@ class _CentresScreenState extends State<CentresScreen> {
           ),
         );
     return Scaffold(
-      appBar: AppBar(title: Text(context.tr('Find a centre', 'ಕೇಂದ್ರ ಹುಡುಕಿ'))),
+      appBar: SevaBar(title: Text(context.tr('Find a centre', 'ಕೇಂದ್ರ ಹುಡುಕಿ'))),
       body: ListView(padding: EdgeInsets.zero, children: [
         ExcludeSemantics(
           child: LayoutBuilder(builder: (context, box) {
@@ -183,7 +183,7 @@ class _CentreSheetState extends State<_CentreSheet> {
               Row(children: [
                 Expanded(
                   child: OutlinedButton.icon(
-                    onPressed: () => toast(tx('Directions opened (demo)', 'ಮಾರ್ಗ ತೆರೆಯಲಾಗಿದೆ (ಡೆಮೊ)')),
+                    onPressed: () => toast(tx('Opening directions', 'ಮಾರ್ಗ ತೆರೆಯಲಾಗುತ್ತಿದೆ')),
                     icon: const Icon(Icons.directions_outlined),
                     label: Text(context.tr('Directions', 'ಮಾರ್ಗ')),
                   ),

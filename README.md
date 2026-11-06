@@ -1,6 +1,6 @@
 # SevaOne Demo
 
-A fully simulated Flutter citizen app for Karnataka. There is no backend: every login, payment, document, status change, reading and notification is fake and runs on the device. Screens carry a DEMO marker.
+A Flutter citizen app for Karnataka. There is no backend yet: logins, payments, documents, status changes, readings and notifications are simulated on the device. Only the helpline and emergency numbers act for real, through the phone's dialler.
 
 ```bash
 flutter run

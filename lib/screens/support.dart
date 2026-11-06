@@ -7,6 +7,7 @@ import '../app/theme.dart';
 import '../data/models.dart';
 import '../data/seed.dart';
 import '../router.dart';
+import '../widgets/art.dart';
 import '../widgets/common.dart';
 
 /// Features 14, 16 plus IVR.
@@ -33,8 +34,24 @@ class HelpScreen extends StatelessWidget {
           ),
         );
     return Scaffold(
-      appBar: AppBar(title: Text(context.tr('Help', 'ಸಹಾಯ'))),
+      appBar: SevaBar(title: Text(context.tr('Help', 'ಸಹಾಯ'))),
       body: ListView(padding: const EdgeInsets.all(16), children: [
+        GlowPanel(
+          child: Row(children: [
+            Expanded(
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Text(context.tr('How can we help?', 'ನಾವು ಹೇಗೆ ಸಹಾಯ ಮಾಡಬಹುದು?'),
+                    style: context.tt.headlineSmall?.copyWith(color: Colors.white)),
+                const SizedBox(height: 4),
+                Text(context.tr('Real people, 24 hours a day, in Kannada and English.',
+                    'ದಿನದ 24 ಗಂಟೆ, ಕನ್ನಡ ಮತ್ತು ಇಂಗ್ಲಿಷ್‌ನಲ್ಲಿ ಸಹಾಯ.'),
+                    style: const TextStyle(color: Colors.white)),
+              ]),
+            ),
+            const IconArt(Icons.support_agent, size: 78),
+          ]),
+        ),
+        const SizedBox(height: 14),
         tile(Icons.call_outlined, context.tr('Call 1902', '1902ಗೆ ಕರೆ ಮಾಡಿ'),
             context.tr('Helpline with Kannada menu, 24x7', 'ಕನ್ನಡ ಮೆನು ಇರುವ ಸಹಾಯವಾಣಿ, 24x7'),
             () => push(context, const IvrScreen())),
@@ -54,13 +71,20 @@ class HelpScreen extends StatelessWidget {
           child: Text(context.tr('Common questions', 'ಸಾಮಾನ್ಯ ಪ್ರಶ್ನೆಗಳು'), style: context.tt.titleLarge),
         ),
         const SizedBox(height: 4),
+        const SizedBox(height: 8),
         for (final (q, a) in faqs)
-          ExpansionTile(
-            tilePadding: EdgeInsets.zero,
-            childrenPadding: const EdgeInsets.only(bottom: 12),
-            expandedAlignment: Alignment.centerLeft,
-            title: Text(context.loc(q), style: const TextStyle(fontWeight: FontWeight.w600)),
-            children: [Text(context.loc(a))],
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: SevaCard(
+              padding: EdgeInsets.zero,
+              child: ExpansionTile(
+                shape: const Border(),
+                childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 14),
+                expandedAlignment: Alignment.centerLeft,
+                title: Text(context.loc(q), style: const TextStyle(fontWeight: FontWeight.w600)),
+                children: [Text(context.loc(a))],
+              ),
+            ),
           ),
       ]),
     );
@@ -117,11 +141,8 @@ class _IvrScreenState extends State<IvrScreen> {
     ];
     return Scaffold(
       backgroundColor: Seva.navy,
-      appBar: AppBar(
-        backgroundColor: Seva.navy,
-        foregroundColor: Colors.white,
+      appBar: SevaBar(
         automaticallyImplyLeading: false,
-        actions: const [DemoChip(onDark: true), SizedBox(width: 16)],
       ),
       body: SafeArea(
         child: Padding(
@@ -223,7 +244,7 @@ class _GrievanceScreenState extends State<GrievanceScreen> {
     ];
     final canSend = subject.text.trim().length > 3 && details.text.trim().length > 3;
     return Scaffold(
-      appBar: AppBar(title: Text(context.tr('Grievance', 'ಕುಂದುಕೊರತೆ')), actions: const [
+      appBar: SevaBar(title: Text(context.tr('Grievance', 'ಕುಂದುಕೊರತೆ')), actions: const [
         Padding(padding: EdgeInsets.only(right: 16), child: Center(child: Text('iPGRS'))),
       ]),
       body: ListView(padding: const EdgeInsets.all(16), children: [
@@ -332,7 +353,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
     ];
     final subject = widget.subject ?? context.tr('SevaOne app', 'ಸೇವಾಒನ್ ಆ್ಯಪ್');
     return Scaffold(
-      appBar: AppBar(title: Text(context.tr('Feedback', 'ಪ್ರತಿಕ್ರಿಯೆ'))),
+      appBar: SevaBar(title: Text(context.tr('Feedback', 'ಪ್ರತಿಕ್ರಿಯೆ'))),
       body: ListView(
           padding: const EdgeInsets.all(20),
           children: sent
@@ -344,19 +365,46 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                       textAlign: TextAlign.center, style: context.tt.headlineSmall),
                 ]
               : [
-                  Text(context.tr('How was it?', 'ಹೇಗಿತ್ತು?'), style: context.tt.headlineSmall),
-                  Text(subject, style: TextStyle(color: context.cs.onSurfaceVariant)),
-                  const SizedBox(height: 14),
-                  Row(children: [
-                    for (var i = 1; i <= 5; i++)
-                      IconButton(
-                        tooltip: context.tr('$i out of 5', '5 ರಲ್ಲಿ $i'),
-                        iconSize: 36,
-                        onPressed: () => setState(() => stars = i),
-                        icon: Icon(i <= stars ? Icons.star_rounded : Icons.star_outline_rounded,
-                            color: Seva.gold),
+                  GlowPanel(
+                    child: Column(children: [
+                      Text(context.tr('How was your experience?', 'ನಿಮ್ಮ ಅನುಭವ ಹೇಗಿತ್ತು?'),
+                          textAlign: TextAlign.center,
+                          style: context.tt.headlineSmall?.copyWith(color: Colors.white)),
+                      Text(subject,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(color: Colors.white)),
+                      const SizedBox(height: 12),
+                      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                        for (var i = 1; i <= 5; i++)
+                          Expanded(
+                            child: IconButton(
+                              tooltip: context.tr('\$i out of 5', '5 ರಲ್ಲಿ \$i'),
+                              iconSize: 40,
+                              padding: EdgeInsets.zero,
+                              onPressed: () => setState(() => stars = i),
+                              icon: Icon(
+                                  i <= stars ? Icons.star_rounded : Icons.star_outline_rounded,
+                                  color: Seva.gold),
+                            ),
+                          ),
+                      ]),
+                      Text(
+                        stars == 0
+                            ? context.tr('Tap a star', 'ನಕ್ಷತ್ರ ಒತ್ತಿರಿ')
+                            : [
+                                context.tr('Very poor', 'ತುಂಬಾ ಕಳಪೆ'),
+                                context.tr('Poor', 'ಕಳಪೆ'),
+                                context.tr('Okay', 'ಪರವಾಗಿಲ್ಲ'),
+                                context.tr('Good', 'ಉತ್ತಮ'),
+                                context.tr('Excellent', 'ಅತ್ಯುತ್ತಮ'),
+                              ][stars - 1],
+                        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
                       ),
-                  ]),
+                    ]),
+                  ),
+                  const SizedBox(height: 18),
+                  Text(context.tr('What stood out?', 'ಯಾವುದು ಗಮನ ಸೆಳೆಯಿತು?'),
+                      style: context.tt.titleLarge?.copyWith(fontSize: 18)),
                   const SizedBox(height: 10),
                   Wrap(spacing: 8, runSpacing: 8, children: [
                     for (final o in options)
@@ -367,10 +415,10 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                             setState(() => v ? tags.add(o) : tags.remove(o)),
                       ),
                   ]),
-                  const SizedBox(height: 14),
+                  const SizedBox(height: 18),
                   TextField(
                     controller: c,
-                    maxLines: 3,
+                    maxLines: 4,
                     decoration: InputDecoration(
                         labelText: context.tr('Anything else? (optional)', 'ಬೇರೆ ಏನಾದರೂ? (ಐಚ್ಛಿಕ)')),
                   ),

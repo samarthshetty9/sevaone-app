@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../app/state.dart';
 import '../app/theme.dart';
 import '../router.dart';
+import '../widgets/art.dart';
 import '../widgets/common.dart';
 import 'assistant.dart';
 import 'extras.dart';
@@ -106,8 +107,6 @@ class _AiHomeState extends State<AiHome> {
                 child: Text('SevaOne',
                     maxLines: 1, overflow: TextOverflow.ellipsis, style: context.tt.titleLarge?.copyWith(color: Colors.white)),
               ),
-                const SizedBox(width: 8),
-                const DemoChip(onDark: true),
               ]),
             ),
             const AiToggle(),
@@ -284,7 +283,7 @@ class _AskScreenState extends State<AskScreen> {
     final reply = q.isEmpty ? null : think(q);
     final results = q.isEmpty ? const [] : app.searchAll(q).take(5).toList();
     return Scaffold(
-      appBar: AppBar(title: Text(context.tr('Ask Seva', 'ಸೇವಾ ಕೇಳಿ'))),
+      appBar: SevaBar(title: Text(context.tr('Ask Seva', 'ಸೇವಾ ಕೇಳಿ'))),
       body: ListView(padding: const EdgeInsets.all(16), children: [
         TextField(
           controller: c,
@@ -293,6 +292,11 @@ class _AskScreenState extends State<AskScreen> {
           decoration: InputDecoration(
             hintText: context.tr('e.g. I had a baby', 'ಉದಾ. ನನಗೆ ಮಗು ಜನಿಸಿದೆ'),
             prefixIcon: const Icon(Icons.auto_awesome),
+            suffixIcon: IconButton(
+              tooltip: context.tr('Speak to Seva', 'ಸೇವಾ ಜೊತೆ ಮಾತನಾಡಿ'),
+              onPressed: () => openRoute('voice'),
+              icon: const Icon(Icons.mic_none_rounded),
+            ),
           ),
         ),
         const SizedBox(height: 12),
@@ -320,15 +324,37 @@ class _AskScreenState extends State<AskScreen> {
             Padding(padding: const EdgeInsets.only(bottom: 6), child: ServiceRow(v)),
         ],
         if (q.isEmpty) ...[
-          Text(context.tr('Try', 'ಪ್ರಯತ್ನಿಸಿ'), style: TextStyle(color: context.cs.onSurfaceVariant)),
-          const SizedBox(height: 8),
-          Wrap(spacing: 8, runSpacing: 8, children: [
-            for (final e in lifeEvents)
-              ActionChip(
-                label: Text(context.loc(e.title)),
-                onPressed: () => setState(() => c.text = context.loc(e.title)),
+          const SizedBox(height: 6),
+          GlowPanel(
+            child: Row(children: [
+              const IconArt(Icons.auto_awesome, size: 72),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Text(
+                  context.tr('Tell me what is happening and I will find the right services.',
+                      'ಏನು ನಡೆಯುತ್ತಿದೆ ಎಂದು ತಿಳಿಸಿ, ಸರಿಯಾದ ಸೇವೆಗಳನ್ನು ಹುಡುಕುತ್ತೇನೆ.'),
+                  style: context.tt.titleMedium?.copyWith(color: Colors.white),
+                ),
               ),
-          ]),
+            ]),
+          ),
+          SectionTitle(context.tr('Popular situations', 'ಜನಪ್ರಿಯ ಸಂದರ್ಭಗಳು')),
+          const SizedBox(height: 8),
+          for (final e in lifeEvents)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: SevaCard(
+                onTap: () => push(context, LifeEventDetail(e)),
+                child: Row(children: [
+                  IconBadge(e.icon, size: 40),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(context.loc(e.title), style: const TextStyle(fontWeight: FontWeight.w600)),
+                  ),
+                  const Icon(Icons.chevron_right),
+                ]),
+              ),
+            ),
         ],
       ]),
     );

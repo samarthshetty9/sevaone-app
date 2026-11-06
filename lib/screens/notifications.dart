@@ -21,7 +21,7 @@ class NotificationsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final s = context.watchApp;
     return Scaffold(
-      appBar: AppBar(
+      appBar: SevaBar(
         title: Text(context.tr('Notifications', 'ಅಧಿಸೂಚನೆಗಳು')),
         actions: [
           if (s.unread > 0)
@@ -42,35 +42,61 @@ class NotificationsScreen extends StatelessWidget {
               icon: Icons.notifications_none,
               title: context.tr('Nothing new', 'ಹೊಸದೇನೂ ಇಲ್ಲ'),
             )
-          : ListView.separated(
-              padding: const EdgeInsets.all(16),
-              itemCount: s.notifications.length,
-              separatorBuilder: (_, _) => const SizedBox(height: 8),
-              itemBuilder: (_, i) {
-                final n = s.notifications[i];
-                return SevaCard(
-                  color: n.read ? null : context.cs.primary.withValues(alpha: 0.07),
-                  onTap: () {
-                    app.set(() => n.read = true);
-                    if (n.route != null) openRoute(n.route!);
-                  },
-                  child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    IconBadge(_icon(n.kind), size: 38),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                        Text(context.loc(n.title),
-                            style: const TextStyle(fontWeight: FontWeight.w600)),
-                        Text(context.loc(n.body), style: const TextStyle(fontSize: 13.5)),
-                        const SizedBox(height: 2),
-                        Text(ago(n.at),
-                            style: TextStyle(fontSize: 12, color: context.cs.onSurfaceVariant)),
-                      ]),
+          : ListView(padding: const EdgeInsets.all(16), children: [
+              for (final (title, items) in [
+                (
+                  context.tr('Today', 'ಇಂದು'),
+                  s.notifications.where((n) => DateTime.now().difference(n.at).inHours < 24).toList()
+                ),
+                (
+                  context.tr('Earlier', 'ಹಿಂದಿನವು'),
+                  s.notifications.where((n) => DateTime.now().difference(n.at).inHours >= 24).toList()
+                ),
+              ])
+                if (items.isNotEmpty) ...[
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8, top: 4),
+                    child: Semantics(
+                      header: true,
+                      child: Text(title, style: context.tt.titleLarge?.copyWith(fontSize: 18)),
                     ),
-                  ]),
-                );
-              },
-            ),
+                  ),
+                  for (final n in items)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 8),
+                      child: SevaCard(
+                        color: n.read ? null : context.cs.primary.withValues(alpha: 0.08),
+                        onTap: () {
+                          app.set(() => n.read = true);
+                          if (n.route != null) openRoute(n.route!);
+                        },
+                        child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                          IconBadge(_icon(n.kind), size: 42),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                              Text(context.loc(n.title),
+                                  style: const TextStyle(fontWeight: FontWeight.w700)),
+                              const SizedBox(height: 1),
+                              Text(context.loc(n.body), style: const TextStyle(fontSize: 13.5)),
+                              const SizedBox(height: 3),
+                              Text(ago(n.at),
+                                  style: TextStyle(fontSize: 12, color: context.cs.onSurfaceVariant)),
+                            ]),
+                          ),
+                          if (!n.read)
+                            Container(
+                              width: 9,
+                              height: 9,
+                              margin: const EdgeInsets.only(left: 6, top: 5),
+                              decoration: BoxDecoration(
+                                  color: context.cs.primary, shape: BoxShape.circle),
+                            ),
+                        ]),
+                      ),
+                    ),
+                ],
+            ]),
     );
   }
 }
@@ -88,7 +114,7 @@ class _Prefs extends StatelessWidget {
       'weather': context.tr('Weather and air alerts', 'ಹವಾಮಾನ ಮತ್ತು ಗಾಳಿ ಎಚ್ಚರಿಕೆಗಳು'),
     };
     return Scaffold(
-      appBar: AppBar(title: Text(context.tr('Notification settings', 'ಅಧಿಸೂಚನೆ ಸೆಟ್ಟಿಂಗ್‌ಗಳು'))),
+      appBar: SevaBar(title: Text(context.tr('Notification settings', 'ಅಧಿಸೂಚನೆ ಸೆಟ್ಟಿಂಗ್‌ಗಳು'))),
       body: ListView(padding: const EdgeInsets.all(16), children: [
         for (final e in labels.entries)
           SwitchListTile(

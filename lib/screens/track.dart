@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../app/state.dart';
 import '../data/models.dart';
+import '../widgets/art.dart';
 import '../widgets/common.dart';
+import '../app/theme.dart';
 import 'support.dart';
 
 /// Feature 8: tracking across Service Plus, Sakala and token-based applications.
@@ -37,45 +39,66 @@ class _TrackScreenState extends State<TrackScreen> {
   @override
   Widget build(BuildContext context) {
     final s = context.watchApp;
-    final samples = ['KAR-REV-2026-104512', 'SKL-GSC-2026-778120', 'TKN-8842-1190'];
     return Scaffold(
-      appBar: AppBar(
+      appBar: SevaBar(
         automaticallyImplyLeading: false,
         title: Text(context.tr('Track applications', 'ಅರ್ಜಿಗಳನ್ನು ಟ್ರ್ಯಾಕ್ ಮಾಡಿ')),
       ),
       body: ListView(padding: const EdgeInsets.all(16), children: [
-        Text(
-          context.tr('Works for Service Plus, Sakala and counter tokens.',
-              'ಸರ್ವಿಸ್ ಪ್ಲಸ್, ಸಕಾಲ ಮತ್ತು ಕೌಂಟರ್ ಟೋಕನ್‌ಗಳಿಗೆ ಕೆಲಸ ಮಾಡುತ್ತದೆ.'),
-          style: TextStyle(color: context.cs.onSurfaceVariant),
-        ),
-        const SizedBox(height: 10),
-        TextField(
-          controller: c,
-          textCapitalization: TextCapitalization.characters,
-          onSubmitted: (_) => lookup(),
-          decoration: InputDecoration(
-            labelText: context.tr('Application or token number', 'ಅರ್ಜಿ ಅಥವಾ ಟೋಕನ್ ಸಂಖ್ಯೆ'),
-            errorText: notFound
-                ? context.tr('Number not found. Try a sample below.',
-                    'ಸಂಖ್ಯೆ ಸಿಗಲಿಲ್ಲ. ಕೆಳಗಿನ ಮಾದರಿ ಪ್ರಯತ್ನಿಸಿ.')
-                : null,
-            suffixIcon: IconButton(
-              tooltip: context.tr('Track', 'ಟ್ರ್ಯಾಕ್'),
-              icon: const Icon(Icons.arrow_forward),
-              onPressed: lookup,
+        GlowPanel(
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text(context.tr('Track any application', 'ಯಾವುದೇ ಅರ್ಜಿ ಟ್ರ್ಯಾಕ್ ಮಾಡಿ'),
+                style: context.tt.titleLarge?.copyWith(color: Colors.white)),
+            const SizedBox(height: 2),
+            Text(
+              context.tr('Service Plus, Sakala and counter tokens, all in one place.',
+                  'ಸರ್ವಿಸ್ ಪ್ಲಸ್, ಸಕಾಲ ಮತ್ತು ಕೌಂಟರ್ ಟೋಕನ್‌ಗಳು ಒಂದೇ ಕಡೆ.'),
+              style: const TextStyle(color: Colors.white),
             ),
-          ),
+            const SizedBox(height: 12),
+            TextField(
+              controller: c,
+              textCapitalization: TextCapitalization.characters,
+              onSubmitted: (_) => lookup(),
+              style: const TextStyle(color: Color(0xFF131524)),
+              decoration: InputDecoration(
+                fillColor: Colors.white,
+                hintText: context.tr('Application or token number', 'ಅರ್ಜಿ ಅಥವಾ ಟೋಕನ್ ಸಂಖ್ಯೆ'),
+                errorText: notFound
+                    ? context.tr('Number not found. Check it and try again.',
+                        'ಸಂಖ್ಯೆ ಸಿಗಲಿಲ್ಲ. ಪರಿಶೀಲಿಸಿ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.')
+                    : null,
+                errorStyle: const TextStyle(color: Colors.white),
+                suffixIcon: IconButton(
+                  tooltip: context.tr('Track', 'ಟ್ರ್ಯಾಕ್'),
+                  color: Seva.blue,
+                  icon: const Icon(Icons.arrow_forward),
+                  onPressed: lookup,
+                ),
+              ),
+            ),
+          ]),
         ),
-        const SizedBox(height: 10),
-        Wrap(spacing: 6, runSpacing: 6, children: [
-          for (final id in samples)
-            ActionChip(
-              label: Text(id, style: const TextStyle(fontSize: 12)),
-              onPressed: () {
-                c.text = id;
-                lookup(id);
-              },
+        const SizedBox(height: 12),
+        Row(children: [
+          for (final (v, k, tone) in [
+            ('${s.applications.where((a) => !a.done).length}', context.tr('In progress', 'ಪ್ರಗತಿಯಲ್ಲಿದೆ'), 0),
+            ('${s.applications.where((a) => a.done).length}', context.tr('Completed', 'ಪೂರ್ಣಗೊಂಡಿದೆ'), 7),
+            ('${s.grievances.length}', context.tr('Grievances', 'ಕುಂದುಕೊರತೆಗಳು'), 6),
+          ])
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(right: tone == 6 ? 0 : 8),
+                child: SevaCard(
+                  child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                    Text(v, style: context.tt.headlineSmall?.copyWith(color: Seva.tones[tone])),
+                    Text(k,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontSize: 12, color: context.cs.onSurfaceVariant)),
+                  ]),
+                ),
+              ),
             ),
         ]),
         const SizedBox(height: 18),
@@ -135,23 +158,44 @@ class ApplicationDetail extends StatelessWidget {
     context.watchApp;
     final deadline = a.submitted.add(Duration(days: a.sakalaDays));
     return Scaffold(
-      appBar: AppBar(title: Text(context.tr('Application status', 'ಅರ್ಜಿ ಸ್ಥಿತಿ'))),
+      appBar: SevaBar(title: Text(context.tr('Application status', 'ಅರ್ಜಿ ಸ್ಥಿತಿ'))),
       body: ListView(padding: const EdgeInsets.all(16), children: [
-        Text(context.loc(a.service), style: context.tt.headlineSmall),
-        const SizedBox(height: 2),
-        SelectableText(a.id, style: TextStyle(color: context.cs.onSurfaceVariant)),
-        const SizedBox(height: 10),
-        Wrap(spacing: 6, runSpacing: 6, children: [
-          StatusChip(a),
-          Pill(sourceName(a.source), color: context.cs.onSurfaceVariant),
-          if (!a.done)
-            Pill(
-              context.tr('Due by ${dateStr(deadline)}', '${dateStr(deadline)} ಒಳಗೆ'),
-              color: const Color(0xFFB57700),
-              icon: Icons.schedule,
+        GlowPanel(
+          child: Row(children: [
+            SizedBox(
+              width: 78,
+              height: 78,
+              child: Stack(alignment: Alignment.center, children: [
+                SizedBox.expand(
+                  child: CircularProgressIndicator(
+                    value: a.progress,
+                    strokeWidth: 7,
+                    color: Seva.gold,
+                    backgroundColor: Colors.white24,
+                  ),
+                ),
+                Text('${(a.progress * 100).round()}%',
+                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+              ]),
             ),
-        ]),
-        const SizedBox(height: 18),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Text(context.loc(a.service),
+                    style: context.tt.titleLarge?.copyWith(color: Colors.white)),
+                SelectableText(a.id, style: const TextStyle(color: Colors.white, fontSize: 12.5)),
+                const SizedBox(height: 4),
+                Text(
+                  a.done
+                      ? context.tr('Completed', 'ಪೂರ್ಣಗೊಂಡಿದೆ')
+                      : context.tr('Sakala deadline ${dateStr(deadline)}', 'ಸಕಾಲ ಗಡುವು ${dateStr(deadline)}'),
+                  style: const TextStyle(color: Seva.gold, fontWeight: FontWeight.w600, fontSize: 13),
+                ),
+              ]),
+            ),
+          ]),
+        ),
+        const SizedBox(height: 12),
         SevaCard(
           child: Column(children: [
             for (var i = 0; i < a.stages.length; i++)
@@ -162,16 +206,33 @@ class ApplicationDetail extends StatelessWidget {
               ),
           ]),
         ),
-        const SizedBox(height: 14),
-        if (!a.done)
-          OutlinedButton.icon(
-            onPressed: () => app.advance(a),
-            icon: const Icon(Icons.fast_forward_outlined),
-            label: Text(context.tr('Simulate next step', 'ಮುಂದಿನ ಹಂತ ಅನುಕರಿಸಿ')),
-          ),
+        const SizedBox(height: 12),
+        SevaCard(
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text(context.tr('Application details', 'ಅರ್ಜಿ ವಿವರಗಳು'), style: context.tt.titleMedium),
+            const SizedBox(height: 8),
+            for (final (k, v) in [
+              (context.tr('Department', 'ಇಲಾಖೆ'), context.loc(a.dept)),
+              (context.tr('Applied on', 'ಅರ್ಜಿ ದಿನಾಂಕ'), dateStr(a.submitted)),
+              (context.tr('Source', 'ಮೂಲ'), sourceName(a.source)),
+            ])
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 5),
+                child: Row(children: [
+                  Expanded(child: Text(k, style: TextStyle(color: context.cs.onSurfaceVariant))),
+                  Flexible(
+                    child: Text(v,
+                        textAlign: TextAlign.right,
+                        style: const TextStyle(fontWeight: FontWeight.w600)),
+                  ),
+                ]),
+              ),
+          ]),
+        ),
+        const SizedBox(height: 12),
         if (a.done) ...[
           FilledButton.icon(
-            onPressed: () => toast(tx('Certificate saved (demo)', 'ಪ್ರಮಾಣಪತ್ರ ಉಳಿಸಲಾಗಿದೆ (ಡೆಮೊ)')),
+            onPressed: () => toast(tx('Certificate saved', 'ಪ್ರಮಾಣಪತ್ರ ಉಳಿಸಲಾಗಿದೆ')),
             icon: const Icon(Icons.download_outlined),
             label: Text(context.tr('Download certificate', 'ಪ್ರಮಾಣಪತ್ರ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ')),
           ),

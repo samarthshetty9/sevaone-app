@@ -1,5 +1,5 @@
 name: sevaone_app
-description: Simulated SevaOne citizen app demo (no backend).
+description: SevaOne citizen app.
 publish_to: none
 version: 0.1.0+1
 
@@ -9,6 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  url_launcher: ^6.3.3
 
 dev_dependencies:
   flutter_test:
