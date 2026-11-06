@@ -1,5 +1,9 @@
 # Log
 
+## 2026-11-06: Changed the typeface to Noto Sans
+
+The portal's DM Sans and Space Grotesk read as a tech startup, and the user rejected them as wrong for a government app. Everything now uses Noto Sans, which is plain, highly legible and matches the bundled Noto Sans Kannada. Keep the type neutral; do not reintroduce a display font.
+
 ## 2026-11-06: Built the simulated SevaOne app
 
 Built a no-backend Flutter demo covering the 21 features in the plan PDF, plus features seen in UMANG. UMANG is the main feature reference, but its UI must not be copied; the colleague's existing SevaOne app was shown for context only and is not a target to match. Branding comes from the seva-one web portal. The user explicitly did not want a "service status" panel or OTP-by-call fallback, so those were removed; do not re-add them.

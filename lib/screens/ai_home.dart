@@ -100,15 +100,16 @@ class _AiHomeState extends State<AiHome> {
       child: Stack(children: [
         ListView(padding: EdgeInsets.fromLTRB(18, top + 10, 18, 110), children: [
           Row(children: [
-            Flexible(
-              child: Text('SevaOne',
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: context.tt.titleLarge?.copyWith(color: Colors.white)),
+            Expanded(
+              child: Row(children: [
+                Flexible(
+                child: Text('SevaOne',
+                    maxLines: 1, overflow: TextOverflow.ellipsis, style: context.tt.titleLarge?.copyWith(color: Colors.white)),
+              ),
+                const SizedBox(width: 8),
+                const DemoChip(onDark: true),
+              ]),
             ),
-            const SizedBox(width: 8),
-            const DemoChip(onDark: true),
-            const Spacer(),
             const AiToggle(),
           ]),
           const SizedBox(height: 22),

@@ -304,7 +304,7 @@ class PaperView extends StatelessWidget {
                 maxLines: 2,
                 style: TextStyle(
                   color: bw ? Colors.black : const Color(0xFF1A1C37),
-                  fontFamily: 'SpaceGrotesk',
+                  fontFamily: 'NotoSans',
                   fontSize: kind == 'h' ? 12 : (kind == 'b' ? 17 : 13),
                   fontWeight: kind == 'n' ? FontWeight.w600 : FontWeight.w700,
                   letterSpacing: kind == 'h' ? 1 : 0,

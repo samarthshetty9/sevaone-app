@@ -20,7 +20,7 @@ class Seva {
   );
 }
 
-const _display = 'SpaceGrotesk';
+const _display = 'NotoSans';
 
 ThemeData buildTheme({required bool dark, required bool highContrast}) {
   final scheme = ColorScheme.fromSeed(
@@ -60,13 +60,12 @@ ThemeData buildTheme({required bool dark, required bool highContrast}) {
         fontSize: size,
         fontWeight: w,
         height: height,
-        letterSpacing: -0.2,
       );
 
   final base = ThemeData(
     useMaterial3: true,
     colorScheme: scheme,
-    fontFamily: 'DMSans',
+    fontFamily: 'NotoSans',
     fontFamilyFallback: const ['NotoKannada'],
   );
 
@@ -104,7 +103,7 @@ ThemeData buildTheme({required bool dark, required bool highContrast}) {
         minimumSize: const Size(64, 50),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
         textStyle: const TextStyle(
-            fontFamily: 'DMSans',
+            fontFamily: 'NotoSans',
             fontFamilyFallback: ['NotoKannada'],
             fontSize: 15.5,
             fontWeight: FontWeight.w600),
@@ -140,7 +139,7 @@ ThemeData buildTheme({required bool dark, required bool highContrast}) {
       surfaceTintColor: Colors.transparent,
       indicatorColor: scheme.primary.withValues(alpha: 0.14),
       labelTextStyle: WidgetStateProperty.resolveWith((s) => TextStyle(
-            fontFamily: 'DMSans',
+            fontFamily: 'NotoSans',
             fontFamilyFallback: const ['NotoKannada'],
             fontSize: 11.5,
             fontWeight: s.contains(WidgetState.selected)

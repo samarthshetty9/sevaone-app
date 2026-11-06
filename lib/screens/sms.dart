@@ -91,7 +91,7 @@ class _SmsScreenState extends State<SmsScreen> {
           Text(context.tr('SMS services', 'ಎಸ್‌ಎಂಎಸ್ ಸೇವೆಗಳು')),
           Text(context.tr('To $shortCode · works on any phone', '$shortCode ಗೆ · ಯಾವುದೇ ಫೋನ್‌ನಲ್ಲಿ ಕೆಲಸ ಮಾಡುತ್ತದೆ'),
               style: TextStyle(
-                  fontFamily: 'DMSans',
+                  fontFamily: 'NotoSans',
                   fontSize: 12.5,
                   fontWeight: FontWeight.w500,
                   color: context.cs.onSurfaceVariant)),

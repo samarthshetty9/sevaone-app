@@ -103,15 +103,16 @@ class _Header extends StatelessWidget {
                 width: 30, height: 30, excludeFromSemantics: true),
           ),
           const SizedBox(width: 8),
-          Flexible(
-            child: Text('SevaOne',
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: context.tt.titleLarge?.copyWith(color: Colors.white)),
+          Expanded(
+            child: Row(children: [
+              Flexible(
+                child: Text('SevaOne',
+                    maxLines: 1, overflow: TextOverflow.ellipsis, style: context.tt.titleLarge?.copyWith(color: Colors.white)),
+              ),
+              const SizedBox(width: 8),
+              const DemoChip(onDark: true),
+            ]),
           ),
-          const SizedBox(width: 8),
-          const DemoChip(onDark: true),
-          const Spacer(),
           TextButton(
             style: TextButton.styleFrom(foregroundColor: Colors.white, minimumSize: const Size(44, 44)),
             onPressed: () => app.set(() => app.lang = app.lang == 'en' ? 'kn' : 'en'),

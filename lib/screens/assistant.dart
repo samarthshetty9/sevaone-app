@@ -468,7 +468,7 @@ class _LiveChatScreenState extends State<LiveChatScreen> {
                     : context.tr('Kavya · Online', 'ಕಾವ್ಯ · ಆನ್‌ಲೈನ್'))
                 : context.tr('Connecting you to an agent…', 'ಸಹಾಯಕರನ್ನು ಸಂಪರ್ಕಿಸಲಾಗುತ್ತಿದೆ…'),
             style: TextStyle(
-                fontFamily: 'DMSans',
+                fontFamily: 'NotoSans',
                 fontSize: 12.5,
                 fontWeight: FontWeight.w500,
                 color: context.cs.onSurfaceVariant),
